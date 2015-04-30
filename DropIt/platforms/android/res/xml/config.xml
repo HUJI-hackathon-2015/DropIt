@@ -16,6 +16,9 @@
     <feature name="WebIntent">
         <param name="android-package" value="com.borismus.webintent.WebIntent" />
     </feature>
+    <feature name="ContentProviderPlugin">
+        <param name="android-package" value="com.phearme.cordovaplugin.ContentProviderPlugin" />
+    </feature>
     <name>HelloCordova</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
@@ -25,7 +28,4 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
-    <feature name="ContentProviderPlugin">
-        <param name="android-package" value="com.phearme.cordovaplugin.ContentProviderPlugin" />
-    </feature>
 </widget>
