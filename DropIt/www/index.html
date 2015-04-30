@@ -43,7 +43,7 @@
     <div class="w-nav navbar" data-collapse="tiny" data-animation="over-left" data-duration="400" data-contain="1">
         <div class="w-container navbar">
             <a class="w-nav-brand" href="#"><img class="test-logo" src="images/dropitlogo.png" width="76" alt="5541f4aa416e9649769b02a5_dropitlogo.png">
-                <div class="user-location">User@Location</div>
+                <div class="user-location">Waiting For WiFi</div>
             </a>
             <nav class="w-nav-menu navmenu" role="navigation"><a class="w-nav-link" href="#">Home</a><a class="w-nav-link" href="#">About</a><a class="w-nav-link" href="#">Contact</a>
             </nav><a class="add-label" href="#">+</a>
@@ -54,10 +54,6 @@
     </div>
     <div class="w-container main-screen-items">
         <div id="tag-list" class="w-row main-screen-rows">
-            <div class="w-col w-col-2 w-col-stack">
-                <a class="link1 tag-button link2" href="#">
-                    <br>#Infi4</a>
-            </div>
         </div>
     </div>
 </div>
@@ -73,8 +69,12 @@
 <script>
     $(function(){
         $(".add-label").on("click", function(){
-            var name = prompt("Choose a name for your new label!");
-            socketClient.newLabel(name);
+            var name = prompt("New Label Name");
+            alert(name);
+            // If not canceled
+            if (name !== null) {
+                socketClient.newLabel(name);
+            }
         });
 
     });

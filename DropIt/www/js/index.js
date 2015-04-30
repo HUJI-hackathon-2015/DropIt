@@ -17,6 +17,9 @@
  * under the License.
  */
 var app = {
+    mode: null,
+    shareTarget: null,
+
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -33,7 +36,19 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
+        alert("hi");
+        alert(window.plugins.webintent.getExtra);
+        alert(window.plugins.webintent.EXTRA_STREAM);
+        window.plugins.webintent.getExtra(webintent.EXTRA_STREAM,
+            function (url , a)
+            {
+                app.mode = "share";
+                app.shareTarget = url;
 
+            }, function(error)
+            {
+                app.mode = "chat";
+            });
         app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
