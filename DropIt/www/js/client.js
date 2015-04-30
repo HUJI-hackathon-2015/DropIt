@@ -2,7 +2,7 @@
  * Created by tmrlvi on 4/30/15.
  */
 
-var SERVER_ADDRESS = 'http://132.65.250.197:3000';
+var SERVER_ADDRESS = 'http://132.65.120.137:3000';
 var server = io(SERVER_ADDRESS);
 
 var socketClient = {
@@ -10,7 +10,7 @@ var socketClient = {
     init : function(){
         server.on("getTags", socketClient.getTagsResponse);
         server.on("newLabel", socketClient.newLabelResponse);
-        server.on("addedLabel", socketClient.addedLabelResp);
+        server.on("addedLabel", socketClient.addLabel);
         server.on("joinLabel", socketClient.joinLabelResponse);
         server.on("partLabel", socketClient.joinLabelResponse);
         socketClient.getTags();
@@ -42,9 +42,10 @@ var socketClient = {
     },
 
     getTagsResponse : function(data){
+        setLocation(data["location"]);
 		alert(JSON.stringify(data));
         for (index in data["labels"]){
-            alert(data["labels"][index]["name"] + " " + data["labels"][index]["priority"] + " " + data["labels"][index]["members"]);
+            addNewLabel(data["labels"][index]["name"], data["labels"][index]["members"].length, true);
         }
     },
 
@@ -59,15 +60,14 @@ var socketClient = {
         alert(JSON.stringify(data));
     },
 
-    addedLabelResp : function(data){
-        alert("in added label and see data");
-        alert(JSON.stringify(data));
-        alert(server.emit('addedLabel', { 'status' : 'OK' }));
+    addLabel : function(data){
+        addNewLabel(data["name"], 0, false)
+        server.emit('addedLabel', { 'status' : 'OK' });
     },
-
+    
     joinLabel : function(labelName) {
         alert("in join label");
-       alret(server.emit('joinLabel', {'name': labelName}));
+        alret(server.emit('joinLabel', {'name': labelName}));
     },
     joinLabelResponse : function(data) {
         alert ("in join label response ")
@@ -83,9 +83,6 @@ var socketClient = {
         alert(data);
     }
 
-
-
-
-}
+};
 
 document.addEventListener('deviceready', socketClient.init, false);
