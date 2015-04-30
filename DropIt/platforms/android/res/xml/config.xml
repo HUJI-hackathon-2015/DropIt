@@ -13,7 +13,10 @@
     <feature name="Notification">
         <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
     </feature>
-    <name>DropIt</name>
+    <feature name="WebIntent">
+        <param name="android-package" value="com.borismus.webintent.WebIntent" />
+    </feature>
+    <name>HelloCordova</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
@@ -22,7 +25,7 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
-    <feature name="WebIntent">
-        <param name="android-package" value="com.borismus.webintent.WebIntent" />
+    <feature name="ContentProviderPlugin">
+        <param name="android-package" value="com.phearme.cordovaplugin.ContentProviderPlugin" />
     </feature>
 </widget>
