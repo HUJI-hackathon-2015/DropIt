@@ -2,13 +2,14 @@
  * Created by tmrlvi on 4/30/15.
  */
 
-SERVER_ADDRESS = 'http://localhost'
+SERVER_ADDRESS = 'http://132.65.125.7:8080'
 var client = {
     init : function(){
         this.server = io(SERVER_ADDRESS);
         this.server.on("getTags", this.getTagsResponse);
         this.server.on("newLabel", this.newLabelResponse);
         this.server.on("addedLabel", this.addedLabelResp);
+        alert("ready");
         this.getTags()
     },
 
@@ -20,7 +21,6 @@ var client = {
                                             'BSSID' : accessPoint.BSSID,
                                             'user' : cordova.plugins.uid.IMEI
                                             });
-                    alert("error" + error);
                 }
             },
             function (error) {
