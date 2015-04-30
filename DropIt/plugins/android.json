@@ -19,6 +19,10 @@
                         {
                             "xml": "<feature name=\"UID\"><param name=\"android-package\" value=\"org.hygieiasoft.cordova.uid.UID\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Notification\"><param name=\"android-package\" value=\"org.apache.cordova.dialogs.Notification\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -51,6 +55,9 @@
             "PACKAGE_NAME": "io.cordova.hellocordova"
         },
         "org.hygieiasoft.cordova.uid": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "org.apache.cordova.dialogs": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },

@@ -16,5 +16,11 @@
             "type": "registry",
             "id": "org.hygieiasoft.cordova.uid"
         }
+    },
+    "org.apache.cordova.dialogs": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.dialogs"
+        }
     }
 }
