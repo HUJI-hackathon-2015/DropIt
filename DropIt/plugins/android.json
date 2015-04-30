@@ -27,6 +27,10 @@
                         {
                             "xml": "<feature name=\"WebIntent\"><param name=\"android-package\" value=\"com.borismus.webintent.WebIntent\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"ContentProviderPlugin\"><param name=\"android-package\" value=\"com.phearme.cordovaplugin.ContentProviderPlugin\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -65,6 +69,9 @@
             "PACKAGE_NAME": "io.cordova.hellocordova"
         },
         "com.borismus.webintent": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "com.phearme.cordovaplugin.ContentProviderPlugin": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },

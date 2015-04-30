@@ -1,0 +1,19 @@
+{
+    "version": "0.2.7",
+    "name": "com.phearme.cordovaplugin.contentproviderplugin",
+    "cordova_name": "ContentProviderPlugin",
+    "description": "A generic Cordova plugin for querying Content Providers on Android devices.",
+    "license": "Apache 2.0",
+    "keywords": [
+        "cordova",
+        "device",
+        "content",
+        "provider",
+        "contentprovider",
+        "android"
+    ],
+    "platforms": [
+        "android"
+    ],
+    "engines": []
+}

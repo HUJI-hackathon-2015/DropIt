@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+		id="com.phearme.cordovaplugin.ContentProviderPlugin" version="0.2.7">
+	<name>ContentProviderPlugin</name>
+	<description>A generic Cordova plugin for querying Content Providers on Android devices.</description>
+	<license>Apache 2.0</license>
+	<keywords>cordova,device,content,provider,contentprovider,android</keywords>
+	<js-module src="www/ContentProviderPlugin.js" name="ContentProviderPlugin">
+		<clobbers target="contentproviderplugin" />
+	</js-module>
+	<platform name="android">
+		<config-file target="res/xml/config.xml" parent="/*">
+			<feature name="ContentProviderPlugin">
+				<param name="android-package" value="com.phearme.cordovaplugin.ContentProviderPlugin" />
+			</feature>
+		</config-file>
+		<source-file src="src/android/com/phearme/cordovaplugin/ContentProviderPlugin.java" target-dir="src/com/phearme/cordovaplugin" />
+        <!-- Following is an exemple of how to add permissions to the target AndroidManifest.xml -->
+        <!--
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+        </config-file>
+        -->
+	</platform>
+</plugin>

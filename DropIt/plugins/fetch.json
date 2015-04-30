@@ -29,5 +29,11 @@
             "url": "https://github.com/Initsogar/cordova-webintent.git",
             "subdir": "."
         }
+    },
+    "com.phearme.cordovaplugin.ContentProviderPlugin": {
+        "source": {
+            "type": "registry",
+            "id": "com.phearme.cordovaplugin.contentproviderplugin"
+        }
     }
 }
