@@ -30,9 +30,6 @@ var socketClient = {
                         chosen = accessPoints[index];
                     }
                 }
-                alert ("before emitting getTags");
-                alert ("chosen Bssis: " +  chosen.BSSID);
-                alert("uid: " + cordova.plugins.uid.IMEI);
 
                 server.emit('getTags', {
                     'BSSID' : chosen.BSSID,
@@ -47,7 +44,7 @@ var socketClient = {
     getTagsResponse : function(data){
         main.setLocation(data["location"]);
         for (index in data["labels"]){
-            alert(JSON.stringify(data["labels"][index]));
+            //alert(JSON.stringify(data["labels"][index]));
             //alert(data["labels"][index]["name"] + " " + data["labels"][index]["priority"] + " " + data["labels"][index]["members"]);
             main.addNewLabel(data["labels"][index]["name"], data["labels"][index]["members"].length, true);
         }
@@ -96,6 +93,7 @@ var socketClient = {
     },
 
     postMsg: function(label, msg){
+        alert("in post message")
         server.emit('postMsg', {
             "label" : label,
             "type" : "text",
@@ -117,10 +115,12 @@ var socketClient = {
         alert("posting file");
 
         var FR= new FileReader();
+        alert("got filereader");
         FR.onload = function(e) {
             el("img").src = e.target.result;
             el("base").innerHTML = e.target.result;
         };
+        alert("set onload for " + fileUrl);
         FR.readAsDataURL( fileUrl );
         alert(fileUrl);
         alert(FT.encodeBase64Packet());

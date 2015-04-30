@@ -12,7 +12,7 @@ var main = {
         var children = list.children().size();
         var labelDiv = $("<div>").addClass("w-col w-col-2 w-col-stack");
         var link = $("<a>").addClass("tag-button link2").addClass("link" + (((children-1)%5)+1));
-        link.data({"population": population}).html("<br/>#" + name);
+        link.data({"population": population}).html("<br/>" + name);
         if (app.mode === "share"){
             alert ( "in if share");
             link.on("click", null, name, main.postFile);
@@ -35,35 +35,36 @@ var main = {
     },
 
     loadChat: function(room, members){
-        alert("loadChat!");
-        sessionStorage.room = room;
-        alert("setRoom!");
-        sessionStorage.members = members;
-        alert("setMembers!");
+        localStorage.setItem("room", room);
+        localStorage.setItem("members", members);
         window.location.replace("label-page.html");
     }
 };
 
 
-var chat = {
+var chatUI = {
     room : null,
     members : null,
 
     init: function(){
-        chat.room = sessionStorage.room;
-        chat.members = sessionStorage.members;
-        $(".nav2text").text(room);
+        chatUI.room = localStorage.getItem("room");
+        chatUI.members = localStorage.getItem("members");
+        $(".nav2text").text(chatUI.room);
         $("#field-2").keypress(function (e) {
             if (e.which == 13) {
-                chat.sendMessage()
+                alert("Enter");
+                chatUI.sendMessage()
                 return false;
             }
         });
     },
 
     sendMessage: function(){
-        socketClient.postMsg(chat.room, $("#field-2").val())
-        chat.showMessage(message, true);
+        alert("in send message");
+        var message = $("#field-2").val();
+        socketClient.postMsg(chatUI.room, message)
+        alert("after send message");
+        chatUI.showMessage("me", message, true);
     },
 
     showMessage: function(user, message, fromMe){
