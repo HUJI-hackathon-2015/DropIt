@@ -14,7 +14,9 @@ var socketClient = {
         server.on("joinLabel", socketClient.joinLabelResponse);
         server.on("postMsg", socketClient.postMsgResponse);
         server.on("msgPosted", socketClient.msgPosted);
-        socketClient.getTags();
+        if (app.page == "main") {
+            socketClient.getTags();
+        }
         //alert("before before part label");
         //socketClient.partLabel("partingLabel")
     },
@@ -45,6 +47,7 @@ var socketClient = {
     getTagsResponse : function(data){
         main.setLocation(data["location"]);
         for (index in data["labels"]){
+            alert(JSON.stringify(data["labels"][index]));
             //alert(data["labels"][index]["name"] + " " + data["labels"][index]["priority"] + " " + data["labels"][index]["members"]);
             main.addNewLabel(data["labels"][index]["name"], data["labels"][index]["members"].length, true);
         }
@@ -77,7 +80,9 @@ var socketClient = {
     joinLabelResponse : function(data) {
         alert ("in join label response ");
         alert(JSON.stringify(data));
-        ui.loadChat(data["name"], data["members"])
+        alert(JSON.stringify(data["name"]));
+        alert(JSON.stringify(data["members"]));
+        main.loadChat(data["name"], data["members"]);
     },
 
     partLabel : function(labelName) {

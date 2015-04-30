@@ -19,6 +19,7 @@
 var app = {
     mode: null,
     shareTarget: null,
+    page: "main",
 
     // Application Constructor
     initialize: function() {

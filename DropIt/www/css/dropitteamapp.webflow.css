@@ -63,24 +63,29 @@ a {
 @media (max-width: 479px) {
   body {
     background-image: url('../images/cloud pattern-01.jpg');
+    background-size: cover;
   }
   a {
-    color: #0096ed;
+    color: #fab700;
+    font-size: 17px;
+    font-weight: 700;
+    text-decoration: none;
   }
   .add-label {
     background-color: transparent;
-    -webkit-transform: translate(162px, 15px) translate(-39px, 7px);
-    -ms-transform: translate(162px, 15px) translate(-39px, 7px);
-    transform: translate(162px, 15px) translate(-39px, 7px);
+    -webkit-transform: translate(162px, 15px) translate(5px, 2px);
+    -ms-transform: translate(162px, 15px) translate(5px, 2px);
+    transform: translate(162px, 15px) translate(5px, 2px);
     font-size: 38px;
+    text-shadow: rgba(0, 31, 41, 0.36) -1px 0px 23px;
   }
   .main-screen {
     height: 640px;
   }
   .user-location {
-    -webkit-transform: translate(108px, 20px) translate(5px, -34px) translate(-5px, 0px);
-    -ms-transform: translate(108px, 20px) translate(5px, -34px) translate(-5px, 0px);
-    transform: translate(108px, 20px) translate(5px, -34px) translate(-5px, 0px);
+    -webkit-transform: translate(108px, 20px) translate(5px, -34px) translate(-5px, 0px) translate(0px, -5px);
+    -ms-transform: translate(108px, 20px) translate(5px, -34px) translate(-5px, 0px) translate(0px, -5px);
+    transform: translate(108px, 20px) translate(5px, -34px) translate(-5px, 0px) translate(0px, -5px);
     font-family:'Varela Round', sans-serif;
     color: white;
     font-size: 16px;
@@ -95,8 +100,9 @@ a {
     width: 102px;
   }
   .navbar {
-    height: 70px;
+    height: 60px;
     background-color: #0087b8;
+    box-shadow: rgba(0, 0, 0, 0.47) 1px 1px 37px -10px;
     color: #3b2d2d;
   }
   .main-screen-items {
@@ -145,13 +151,124 @@ a {
     background-color: #a6e7ff;
   }
   .menu-icon {
-    -webkit-transform: translate(3px, 7px) scale(1.31);
-    -ms-transform: translate(3px, 7px) scale(1.31);
-    transform: translate(3px, 7px) scale(1.31);
+    -webkit-transform: translate(-3px, 2px) scale(1.31);
+    -ms-transform: translate(-3px, 2px) scale(1.31);
+    transform: translate(-3px, 2px) scale(1.31);
     color: white;
   }
   .link6.tag-button {
     background-color: #c7f1ff;
+  }
+  .chatcolumns {
+    height: 460px;
+  }
+  .chatpage {
+    height: 640px;
+    margin-bottom: -43px;
+  }
+  .nav2text {
+    -webkit-transform: translate(0px, 19px);
+    -ms-transform: translate(0px, 19px);
+    transform: translate(0px, 19px);
+    font-family:'Varela Round', sans-serif;
+    color: white;
+    font-size: 25px;
+    line-height: 24px;
+    text-align: center;
+  }
+  .texting {
+    height: 15px;
+    margin-top: 0px;
+    margin-bottom: 3px;
+    padding-top: 0px;
+    padding-bottom: 29px;
+    -webkit-transform: translate(0px, 77px);
+    -ms-transform: translate(0px, 77px);
+    transform: translate(0px, 77px);
+  }
+  .formtext {
+    margin-top: -59px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    -webkit-transform: translate(0px, 0px) translate(0px, 58px);
+    -ms-transform: translate(0px, 0px) translate(0px, 58px);
+    transform: translate(0px, 0px) translate(0px, 58px);
+  }
+  .exit-button {
+    -webkit-transform: translate(15px, 20px);
+    -ms-transform: translate(15px, 20px);
+    transform: translate(15px, 20px);
+    color: white;
+    text-align: center;
+  }
+  .bubble1 {
+    width: 221px;
+    height: 50px;
+    float: left;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(17, 193, 237, 0.74);
+    border-radius: 10px;
+    background-color: rgba(17, 193, 237, 0.74);
+    -webkit-transform: translate(-3px, 17px);
+    -ms-transform: translate(-3px, 17px);
+    transform: translate(-3px, 17px);
+  }
+  .bubble1.bubble-2 {
+    width: 243px;
+    background-color: rgba(174, 182, 184, 0.74);
+    -webkit-transform: translate(3px, 12px);
+    -ms-transform: translate(3px, 12px);
+    transform: translate(3px, 12px);
+  }
+  .column1 {
+    height: 75px;
+  }
+  .example-text {
+    width: 217px;
+    -webkit-transform: translate(9px, 5px);
+    -ms-transform: translate(9px, 5px);
+    transform: translate(9px, 5px);
+    font-family:'Varela Round', sans-serif;
+    color: white;
+    text-align: left;
+  }
+  .bubble-2 {
+    width: 337px;
+    float: right;
+    border: 0px solid black;
+    border-radius: 10px;
+    background-color: rgba(203, 212, 214, 0.92);
+    text-align: right;
+  }
+  .back {
+    -webkit-transform: translate(16px, 18px);
+    -ms-transform: translate(16px, 18px);
+    transform: translate(16px, 18px);
+  }
+  .folder {
+    float: right;
+    -webkit-transform: translate(-14px, 13px);
+    -ms-transform: translate(-14px, 13px);
+    transform: translate(-14px, 13px);
+  }
+  .send {
+    display: block;
+    float: right;
+    -webkit-transform: translate(-15px, 100px);
+    -ms-transform: translate(-15px, 100px);
+    transform: translate(-15px, 100px);
+    font-family:'Varela Round', sans-serif;
+    font-size: 16px;
+  }
+  .chatinput {
+    margin-top: 27px;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 15px;
+    -webkit-transform: translate(0px, 84px);
+    -ms-transform: translate(0px, 84px);
+    transform: translate(0px, 84px);
   }
 }
 

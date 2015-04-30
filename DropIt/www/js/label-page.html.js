@@ -17,9 +17,7 @@
  * under the License.
  */
 var app = {
-    mode: null,
-    shareTarget: null,
-    page: "main",
+    page: "chat",
 
     // Application Constructor
     initialize: function() {
@@ -37,7 +35,6 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-
         app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event

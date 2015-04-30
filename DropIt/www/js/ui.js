@@ -32,9 +32,12 @@ var main = {
     },
 
     loadChat: function(room, members){
+        alert("loadChat!");
         sessionStorage.room = room;
+        alert("setRoom!");
         sessionStorage.members = members;
-        window.location.replace("chat.html");
+        alert("setMembers!");
+        window.location.replace("label-page.html");
     }
 };
 
@@ -46,19 +49,33 @@ var chat = {
     init: function(){
         chat.room = sessionStorage.room;
         chat.members = sessionStorage.members;
+        $(".nav2text").text(room);
+        $("#field-2").keypress(function (e) {
+            if (e.which == 13) {
+                chat.sendMessage()
+                return false;
+            }
+        });
     },
 
     sendMessage: function(){
-        socketClient.postMsg(chat.room, $("#input").val())
+        socketClient.postMsg(chat.room, $("#field-2").val())
         chat.showMessage(message, true);
     },
 
     showMessage: function(user, message, fromMe){
-        var messageItem = $("<p>").addClass("text").text(message);
+        var chat = $(".chatcolumns");
+        var column = $("<div>").addClass("w-col w-col-2 w-clearfix")
+        var bubble = $("<div>").addClass("bubble1");
         if (fromMe){
-            messageItem.addClass("me");
+            bubble.addClass("bubble2");
         }
-        $("#text").append(messageItem)
+        else{
+            column.addClass("column1");
+        }
+        bubble.append($("<div>").addClass("example-text").text(user + ": " + message));
+        column.append(bubble);
+        chat.append(column);
     },
 
     sendFile: function(){
