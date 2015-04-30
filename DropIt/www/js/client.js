@@ -62,12 +62,13 @@ var socketClient = {
     newLabelResponse : function(data){
         alert ("in new label response");
         alert(JSON.stringify(data));
-        main.addNewLabel(data["name"], 0, true);
+
     },
 
     addLabel : function(data){
         alert("in added label and see data");
         alert(JSON.stringify(data));
+        main.addNewLabel(data["name"], 0, true);
         alert(server.emit('addedLabel', { 'status' : 'OK' }));
     },
 
@@ -113,3 +114,5 @@ var socketClient = {
 };
 
 document.addEventListener('deviceready', socketClient.init, false);
+
+
