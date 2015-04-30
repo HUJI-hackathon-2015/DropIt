@@ -20,13 +20,21 @@ module.exports = [
         "clobbers": [
             "device"
         ]
+    },
+    {
+        "file": "plugins/org.hygieiasoft.cordova.uid/www/uid.js",
+        "id": "org.hygieiasoft.cordova.uid.uid",
+        "clobbers": [
+            "cordova.plugins.uid"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
     "nl.nielsad.cordova.wifiscanner": "0.0.1",
-    "org.apache.cordova.device": "0.3.0"
+    "org.apache.cordova.device": "0.3.0",
+    "org.hygieiasoft.cordova.uid": "1.1.0"
 }
 // BOTTOM OF METADATA
 });

@@ -16,4 +16,7 @@
     <feature name="Device">
         <param name="android-package" value="org.apache.cordova.device.Device" />
     </feature>
+    <feature name="UID">
+        <param name="android-package" value="org.hygieiasoft.cordova.uid.UID" />
+    </feature>
 </widget>

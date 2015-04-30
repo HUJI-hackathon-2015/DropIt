@@ -10,5 +10,11 @@
             "type": "registry",
             "id": "org.apache.cordova.device"
         }
+    },
+    "org.hygieiasoft.cordova.uid": {
+        "source": {
+            "type": "registry",
+            "id": "org.hygieiasoft.cordova.uid"
+        }
     }
 }

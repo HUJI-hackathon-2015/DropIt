@@ -15,6 +15,10 @@
                         {
                             "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"UID\"><param name=\"android-package\" value=\"org.hygieiasoft.cordova.uid.UID\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -24,10 +28,14 @@
                     "/*": [
                         {
                             "xml": "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\" />",
-                            "count": 1
+                            "count": 2
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",
                             "count": 1
                         }
                     ]
@@ -40,6 +48,9 @@
             "PACKAGE_NAME": "io.cordova.hellocordova"
         },
         "org.apache.cordova.device": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "org.hygieiasoft.cordova.uid": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },
