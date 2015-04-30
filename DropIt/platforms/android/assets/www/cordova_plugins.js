@@ -41,6 +41,13 @@ module.exports = [
         "merges": [
             "navigator.notification"
         ]
+    },
+    {
+        "file": "plugins/com.borismus.webintent/www/webintent.js",
+        "id": "com.borismus.webintent.WebIntent",
+        "clobbers": [
+            "WebIntent"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -49,7 +56,8 @@ module.exports.metadata =
     "nl.nielsad.cordova.wifiscanner": "0.0.1",
     "org.apache.cordova.device": "0.3.0",
     "org.hygieiasoft.cordova.uid": "1.1.0",
-    "org.apache.cordova.dialogs": "0.3.0"
+    "org.apache.cordova.dialogs": "0.3.0",
+    "com.borismus.webintent": "1.0.0"
 }
 // BOTTOM OF METADATA
 });
