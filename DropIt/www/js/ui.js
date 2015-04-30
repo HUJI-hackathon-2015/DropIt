@@ -1,34 +1,54 @@
 /**
  * Created by tmrlvi on 4/30/15.
  */
-function setLocation(name){
 
-}
+var main = {
+    setLocation: function (name) {
 
-function addNewLabel(name, population, to_sort){
-    var newLabel = $("<li>").addClass("tag-item").data({"population" : population}).text(name);
-    $("#tag-list").append(newLabel);
-}
+    },
 
-$(function(){
-        // Dialog for the creation of new label
-        dialog = $("#dialog-form").dialog({
-                autoOpen: false,
-                modal: true,
-                buttons: {
-                    Ok: function(){
-                        socketClient.newLabel($("#tag").val())
-                        dialog.dialog( "close" );
-                    },
-                    Cancel: function() {
-                        dialog.dialog( "close" );
-                    }
-                }
-            })
-        $("#new-label-button").on("click", function(){
-            var name = prompt("Choose a name for your new label!");
-            socketClient.newLabel(name);
-        });
+    addNewLabel: function (name, population, to_sort) {
+        var list = $("#tag-list");
+        var children = list.children().size();
+        var labelDiv = $("<div>").addClass("w-col w-col-2 w-col-stack");
+        var link = $("<a>").addClass("tag-button link2").addClass("link" + (children+1));
+        link.data({"population": population}).text(name).on("click", null, name, main.goChat);
+        labelDiv.append(link);
+        list.append(labelDiv);
+    },
 
-});
+    goChat: function(event){
+        sessionStorage.room = event.data;
+        window.location.replace("chat.html");
+    }
+};
+
+
+var chat = {
+    sendMessage: function(){
+        socketClient.sendMsg($("#input").val());
+        showMessage(message, true);
+    },
+
+    showMessage: function(message, fromMe){
+        var messageItem = $("<p>").addClass("text").text(message);
+        if (fromMe){
+            messageItem.addClass("me");
+        }
+        $("#text").append(messageItem)
+    },
+
+    sendFile: function(){
+
+    },
+
+    showFile: function(){
+
+    },
+
+    loadHistory: function(){
+
+    }
+};
+
 

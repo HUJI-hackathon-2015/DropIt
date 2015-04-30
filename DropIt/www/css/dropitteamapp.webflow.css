@@ -1,0 +1,163 @@
+body {
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  color: #333;
+  font-size: 14px;
+  line-height: 20px;
+}
+h1 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 38px;
+  line-height: 44px;
+  font-weight: 700;
+}
+h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 32px;
+  line-height: 36px;
+  font-weight: 700;
+}
+h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 700;
+}
+h4 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+}
+h5 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+}
+h6 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 700;
+}
+p {
+  margin-bottom: 5px;
+}
+a {
+  color: #00e;
+}
+.add-label {
+  display: inline-block;
+  padding: 4px 15px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+}
+@media (max-width: 479px) {
+  body {
+    background-image: url('../images/cloud pattern-01.jpg');
+  }
+  a {
+    color: #0096ed;
+  }
+  .add-label {
+    background-color: transparent;
+    -webkit-transform: translate(162px, 15px) translate(-39px, 7px);
+    -ms-transform: translate(162px, 15px) translate(-39px, 7px);
+    transform: translate(162px, 15px) translate(-39px, 7px);
+    font-size: 38px;
+  }
+  .main-screen {
+    height: 640px;
+  }
+  .user-location {
+    -webkit-transform: translate(108px, 20px) translate(5px, -34px) translate(-5px, 0px);
+    -ms-transform: translate(108px, 20px) translate(5px, -34px) translate(-5px, 0px);
+    transform: translate(108px, 20px) translate(5px, -34px) translate(-5px, 0px);
+    font-family:'Varela Round', sans-serif;
+    color: white;
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+  .test-logo {
+    -webkit-transform: translate(0px, 10px);
+    -ms-transform: translate(0px, 10px);
+    transform: translate(0px, 10px);
+  }
+  .navmenu {
+    width: 102px;
+  }
+  .navbar {
+    height: 70px;
+    background-color: #0087b8;
+    color: #3b2d2d;
+  }
+  .main-screen-items {
+    height: 300px;
+  }
+  .link2 {
+    display: block;
+    width: 360px;
+    height: 75px;
+    padding-right: 0px;
+    padding-left: 0px;
+    background-color: #1900ff;
+    -webkit-transform: translate(-10px, 0px);
+    -ms-transform: translate(-10px, 0px);
+    transform: translate(-10px, 0px);
+  }
+  .link2.tag-button {
+    background-color: #4fc1e9;
+    font-family:'Varela Round', sans-serif;
+    color: white;
+    font-size: 25px;
+    line-height: 24px;
+    text-align: center;
+    text-decoration: none;
+  }
+  .link1.tag-button {
+    width: 360px;
+    height: 75px;
+    background-color: #3bafda;
+    font-family:'Varela Round', sans-serif;
+    color: white;
+    font-size: 25px;
+    line-height: 25px;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+    text-indent: 0px;
+  }
+  .link3.tag-button {
+    background-color: #69ccf0;
+  }
+  .link4.tag-button {
+    background-color: rgba(124, 218, 252, 0.97);
+  }
+  .link5.tag-button {
+    background-color: #a6e7ff;
+  }
+  .menu-icon {
+    -webkit-transform: translate(3px, 7px) scale(1.31);
+    -ms-transform: translate(3px, 7px) scale(1.31);
+    transform: translate(3px, 7px) scale(1.31);
+    color: white;
+  }
+  .link6.tag-button {
+    background-color: #c7f1ff;
+  }
+}
+
+@font-face {
+  font-family: 'Vagroundedstd';
+  src: url('../fonts/VAGRoundedStd-Thin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+}
