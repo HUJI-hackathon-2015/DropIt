@@ -2,10 +2,19 @@
  * Created by lior on 30/04/2015.
  */
 
+var jf = require('jsonfile');
+var util = require('util');
+var users_file = __base + 'users.json';
+var fs = require("fs");
+
+
 module.exports.findUser = function(uid, serverState) {
-    for (var userEntry in serverState.connectedUsers) {
+   // var connectedUsers = util.inspect(jf.readFileSync(users_file)).a;
+
+    for (var i = 0; i < serverState.connectedUsers.length; i++) {
+        var userEntry = serverState.connectedUsers[i];
         if (userEntry['uid'] == uid) {
-            return userEntry;
+            return serverState.connectedUsers[i];
         }
     }
 
@@ -13,6 +22,7 @@ module.exports.findUser = function(uid, serverState) {
 };
 
 module.exports.findUserByIMEI = function(imei, serverState) {
+    //var connectedUsers = util.inspect(jf.readFileSync(users_file)).a;
     for (var userEntry in serverState.connectedUsers) {
         if (userEntry.imei == imei) {
             return userEntry;
@@ -21,21 +31,27 @@ module.exports.findUserByIMEI = function(imei, serverState) {
 }
 
 module.exports.addUser = function(uid, socket, imei, bssid, serverState) {
+    module.exports.removeUser(uid, serverState);
     var entry = {uid: uid, socket: socket, imei: imei, bssid: bssid};
-    console.log("Adding - " + module.exports.mystringify(entry));
     serverState.connectedUsers.push(entry);
+    console.log(serverState.connectedUsers);
 }
 
 
 module.exports.removeUser = function(uid, serverState) {
+    //var connectedUsers = util.inspect(jf.readFileSync(users_file, {throws: true}));
+   // var connectedUsers = JSON.parse(fs.readFileSync(users_file)).a;
+    //console.log('aaa' - JSON.stringify(connectedUsers));
     for (var i = 0; i < serverState.connectedUsers.length; i++)
     {
         if (serverState.connectedUsers[i].uid == uid) {
-            delete serverState.connectedUsers[i];
+            //delete serverState.connectedUsers[i];
+            serverState.connectedUsers.splice(i, 1);
             return true;
         }
     }
-
+    //jf.writeFileSync(users_file, {a: connectedUsers});
+   // fs.writeFileSync(users_file, JSON.stringify({a : connectedUsers}));
     return false;
 }
 
@@ -49,10 +65,10 @@ module.exports.mystringify = function(str) {
 
 
 module.exports.getRoom = function(bssid, serverState) {
-    console.log("BSSID is " + bssid);
-    for (var entry_bssid in serverState.bssids) {
-        if (entry_bssid.bssid == bssid) {
-            return entry_bssid.name;
+    for (var i = 0; i <  serverState.bssids.length; i++) {
+        console.log("current bssid is " + serverState.bssids[i].bssid);
+        if (serverState.bssids[i].bssid == bssid) {
+            return serverState.bssids[i].name;
         }
     }
 
@@ -61,8 +77,6 @@ module.exports.getRoom = function(bssid, serverState) {
 
 
 module.exports.getLabels = function(room, serverState) {
-    console.log("All labels are " + JSON.stringify(serverState.labels));
-    console.log("This label for room " + room + " is " + JSON.stringify(serverState.labels[room]));
     return serverState.labels[room];
 }
 
@@ -73,14 +87,13 @@ module.exports.newLabel = function(labelName, room, serverState) {
 }
 
 module.exports.getNameFromIMEI = function(imei, serverState) {
-    console.log('imei is ' + imei);
-    //console.log("Alon IMEI is " + serverState.imeis['352136063452433'])
-    console.log("All IMEIs are " + JSON.stringify(serverState.imeis));
     return serverState.imeis[imei];
 }
 
 module.exports.addUserToLabel = function(imei, labelName, room, serverState) {
+    console.log("IMEI - " + imei +". Labelname - " + labelName + ". room = " + room);
     var labels = module.exports.getLabels(room, serverState);
+    console.log("labels - " + JSON.stringify(labels));
     for (var i = 0; i < labels.length; i++) {
         if (labels[i].name == labelName) {
             labels[i].members.push(imei);
@@ -96,7 +109,7 @@ module.exports.removeUserFromLabel = function(imei, labelName, room, serverState
             var members = labels[i].members;
             for (var j = 0; j < members.length; j++) {
                 if (members[j] == imei) {
-                    delete labels[i].members[j];
+                   labels[i].members.splice(j, 1);
                 }
             }
         }
