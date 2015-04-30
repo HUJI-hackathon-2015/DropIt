@@ -2,38 +2,46 @@
  * Created by tmrlvi on 4/30/15.
  */
 
-SERVER_ADDRESS = 'http://132.65.125.7:8080'
-var client = {
+var SERVER_ADDRESS = 'http://132.65.120.137:3000';
+var server = io(SERVER_ADDRESS);
+
+var socketClient = {
+
     init : function(){
-        this.server = io(SERVER_ADDRESS);
-        this.server.on("getTags", this.getTagsResponse);
-        this.server.on("newLabel", this.newLabelResponse);
-        this.server.on("addedLabel", this.addedLabelResp);
-        alert("ready");
-        this.getTags()
+        server.on("getTags", socketClient.getTagsResponse);
+        server.on("newLabel", socketClient.newLabelResponse);
+        server.on("addedLabel", socketClient.addedLabelResp);
+        socketClient.getTags();
     },
 
-    getTags : function ()
+    getTags: function ()
     {
         navigator.wifi.getAccessPoints(function (accessPoints) {
-                for (var accessPoint in accessPoints){
-                    this.server.emit('getTags', {
-                                            'BSSID' : accessPoint.BSSID,
-                                            'user' : cordova.plugins.uid.IMEI
-                                            });
+                var chosen = null;
+                for (var index in accessPoints){
+                    if (chosen === null || accessPoints[index].level > chosen.level){
+                        chosen = accessPoints[index]
+                    }
                 }
+                server.emit('getTags', {
+                    'BSSID' : chosen.BSSID,
+                    'user' : cordova.plugins.uid.IMEI
+                });
             },
             function (error) {
-                alert("error" + error);
+                alert("Error obtaining wifi list: " + error.message);
             })
     },
 
     getTagsResponse : function(data){
-                        alert(data);
+        data["location"];
+        for (index in data["labels"]){
+            alert(data["labels"][index]["name"] + " " + data["labels"][index]["priority"] + " " + data["labels"][index]["members"]);
+        }
     },
 
     newLabel : function(name){
-        this.server.emit("newLabel", {'name': name})
+        server.emit("newLabel", {'name': name})
     },
 
     newLabelResponse : function(data){
@@ -41,12 +49,10 @@ var client = {
     },
 
     addedLabelResp : function(data){
-        alert(data["name"]);
-        this.server.emit('addedLabel', { 'status' : 'OK' });
+        server.emit('addedLabel', { 'status' : 'OK' });
     }
 
 
 }
 
-
-document.addEventListener('deviceready', init, false);
+document.addEventListener('deviceready', socketClient.init, false);
