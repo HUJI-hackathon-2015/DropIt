@@ -29,6 +29,8 @@ var main = {
 
     postFile: function(event){
         alert("Shared!")
+        _loadOne(app.shareTarget);
+
     },
 
     loadChat: function(room, members){
@@ -90,5 +92,4 @@ var chat = {
 
     }
 };
-
 
