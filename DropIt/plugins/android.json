@@ -31,6 +31,10 @@
                         {
                             "xml": "<feature name=\"ContentProviderPlugin\"><param name=\"android-package\" value=\"com.phearme.cordovaplugin.ContentProviderPlugin\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"File\"><param name=\"android-package\" value=\"org.apache.cordova.file.FileUtils\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -48,6 +52,10 @@
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
                             "count": 1
                         }
                     ]
@@ -72,6 +80,9 @@
             "PACKAGE_NAME": "io.cordova.hellocordova"
         },
         "com.phearme.cordovaplugin.ContentProviderPlugin": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cordova-plugin-file": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },
