@@ -11,14 +11,20 @@ var main = {
         var list = $("#tag-list");
         var children = list.children().size();
         var labelDiv = $("<div>").addClass("w-col w-col-2 w-col-stack");
-        var link = $("<a>").addClass("tag-button link2").addClass("link" + (children+1));
-        link.data({"population": population}).text(name).on("click", null, name, main.goChat);
+        var link = $("<a>").addClass("tag-button link2").addClass("link" + (((children-1)%5)+1));
+        link.append($("<br>")).data({"population": population}).text(name).on("click", null, name, main.goChat);
         labelDiv.append(link);
         list.append(labelDiv);
     },
 
     goChat: function(event){
-        sessionStorage.room = event.data;
+        socketClient.joinLabel(event.data);
+
+    },
+
+    loadChat: function(data){
+        sessionStorage.room = data["room"];
+        sessionStorage.memebers = data["memebers"];
         window.location.replace("chat.html");
     }
 };
