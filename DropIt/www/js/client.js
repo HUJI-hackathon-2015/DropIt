@@ -13,10 +13,7 @@ var socketClient = {
         server.on("joinLabel", socketClient.joinLabelResponse);
         server.on("postMsg", socketClient.postMsgResponse);
         server.on("msgPosted", socketClient.msgPosted);
-        if (app.page == "main") {
-            alert("in main");
-            socketClient.getTags();
-        }
+        socketClient.getTags();
         //alert("before before part label");
         //socketClient.partLabel("partingLabel")
     },
@@ -102,28 +99,55 @@ var socketClient = {
     },
 
     postMsgResponse: function(data){
-
+        alert("got response")
     },
 
     msgPosted: function(data){
         // TODO: deal with files
-        ui.showMessage(data["user"], data["content"], false);
+        alert("got msg")
+        chatUI.showMessage(data["user"], data["content"], false);
     },
 
     postFile: function(fileUrl){
+        alert("posting file: " + fileUrl);
+        alert(window.plugins.contentproviderplugin.query);
+        window.plugins.contentproviderplugin.query({
+            contentUri: fileUrl
+        }, function (data) {
+            alert("after posting");
+            //alert(JSON.stringify(data));
+            for (index in data) {
+                var name = data[index]["_display_name"];
 
-        alert("posting file");
+                alert("before reading");
+                var FR = new FileReader();
+                FR.onload = function (e) {
+                    alert("done reading ");
+                    alert("done reading " + name);
+                    alert(e.target.result);
+                    //el("img").src = e.target.result;
+                    //el("base").innerHTML = e.target.result;
+                };
+                FR.onerror = function(error) {
+                    alert("error");
+                    alert("in error: " + error.message);
+                };
+                FR.onloadstart = function(){
+                    alert("Started loading");
+                }
+                alert("Trying to read");
+                cordova.file.externalRootDirectory
+                alert(FR.readAsDataURL);
+                alert(data[index]["_data"]);
+                FR.readAsDataURL(data[index]["_data"]);
+                alert("Read");
+            }
 
-        var FR= new FileReader();
-        alert("got filereader");
-        FR.onload = function(e) {
-            el("img").src = e.target.result;
-            el("base").innerHTML = e.target.result;
-        };
-        alert("set onload for " + fileUrl);
-        FR.readAsDataURL( fileUrl );
-        alert(fileUrl);
-        alert(FT.encodeBase64Packet());
+
+        }, function (err) {
+            alert("error query");
+        });
+
     }
 };
 
