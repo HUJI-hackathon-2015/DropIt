@@ -1,19 +1,41 @@
-/**
- * Created by lior on 30/04/2015.
- */
+global.__base = __dirname + '/';
+var app = require('express')();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+var handlers = require(__base + 'requestHandlers.js');
+var serverState = require(__base + 'serverState.js');
+var dataUtils = require(__base + 'dataUtils.js');
 
-var http = require('http'),
-    fs = require('fs'),
-// NEVER use a Sync function except at start-up!
-    index = fs.readFileSync(__dirname + '/www/index.html');
+server.listen(3000);
 
-// Send index.html to all requests
-var app = http.createServer(function(req, res) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.end(index);
+app.get('/', function (req, res) {
+    res.sendfile(__dirname + '/www/index.html');
 });
 
-// Socket.io server listens to our app
-var io = require('socket.io').listen(app);
-app.listen(3000);
+app.get('/sockettest', function (req, res) {
+    res.sendfile(__dirname + '/www/sockettest.html');
+})
 
+app.get('/defs.js', function (req, res) {
+    res.sendfile(__dirname + '/www/defs.js');
+})
+
+io.on('connection', function (socket) {
+    console.log("Got Incoming connection with ID " + socket.id);
+    socket.on('getTags', function(data) {
+        handlers.getTagsHandler(socket, data, serverState);
+    });
+
+    socket.on('newLabel', function(data) {
+        handlers.newLabelHandler(socket, data, serverState, io);
+    });
+
+    socket.on('joinLabel', function(data) {
+        handlers.joinLabelHandler(socket, data, serverState);
+    })
+
+    socket.on('disconnect', function() {
+        dataUtils.removeUser(socket.id, serverState);
+        console.log('After disconnect - ' + dataUtils.mystringify(serverState.connectedUsers));
+    });
+});
