@@ -1,0 +1,8 @@
+{
+    "nl.nielsad.cordova.wifiscanner": {
+        "source": {
+            "type": "registry",
+            "id": "nl.nielsad.cordova.wifiscanner"
+        }
+    }
+}
