@@ -2,18 +2,20 @@
  * Created by tmrlvi on 4/30/15.
  */
 
-var SERVER_ADDRESS = 'http://132.65.120.137:3000';
+var SERVER_ADDRESS = 'http://132.65.250.197:3000';
 var server = io(SERVER_ADDRESS);
-
 var socketClient = {
 
     init : function(){
+        alert ("in init");
         server.on("getTags", socketClient.getTagsResponse);
         server.on("newLabel", socketClient.newLabelResponse);
         server.on("addedLabel", socketClient.addLabel);
         server.on("joinLabel", socketClient.joinLabelResponse);
-        server.on("partLabel", socketClient.joinLabelResponse);
-        socketClient.getTags();
+        server.on("partLabel", socketClient.partLabelResponse());
+        server.on("msgPosted", socketClient.msgPosted());
+        //alert("before getTags");
+        //socketClient.getTags();
         alert("before new label");
         socketClient.newLabel("newLabel");
         //alert("before before join labell");
@@ -79,10 +81,20 @@ var socketClient = {
     },
 
     partLabelResponse : function(data) {
-        alert ("in part label response ")
-        alert(data);
+        alert("in part label response ")
+        alert(JSON.stringify(data));
+    },
+
+    postMsg : function (msg) {
+        alert ("in postMsg");
+        socket.emit('sendchat', msg);
+    },
+
+    msgPosted : function(date) {
+        alert ("in post message response ");
+        alert(JSON.stringify(data));
     }
 
 };
-
+alert ("calling init");
 document.addEventListener('deviceready', socketClient.init, false);
