@@ -2,7 +2,7 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
     var socket = io.connect('http://' + SERVER_HOST);
-    socket.emit('getTags', { bssid: '98:4b:e1:1c:79:02', imei: '333333' });
+    socket.emit('getTags', { BSSID: '98:4b:e1:1c:79:08', user: '352136063452433' });
     /*socket.on('connection', function (data) {
         console.log(data);
         socket.emit('getTags', { my: 'data' });

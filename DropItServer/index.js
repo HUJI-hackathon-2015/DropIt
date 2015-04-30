@@ -9,6 +9,7 @@ var dataUtils = require(__base + 'dataUtils.js');
 server.listen(3000);
 
 app.get('/', function (req, res) {
+    console.log("Serrved index");
     res.sendfile(__dirname + '/www/index.html');
 });
 
@@ -32,7 +33,15 @@ io.on('connection', function (socket) {
 
     socket.on('joinLabel', function(data) {
         handlers.joinLabelHandler(socket, data, serverState);
-    })
+    });
+
+    socket.on('partLabel', function(data) {
+        handlers.partLabelHandler(socket, data, serverState);
+    });
+
+    socket.on('postMsg', function(data) {
+        handlers.postMsg(socket, data, serverState);
+    });
 
     socket.on('disconnect', function() {
         dataUtils.removeUser(socket.id, serverState);
