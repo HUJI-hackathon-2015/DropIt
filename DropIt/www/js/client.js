@@ -8,14 +8,12 @@ var server = io(SERVER_ADDRESS);
 var socketClient = {
 
     init : function(){
+        alert("hi1");
         server.on("getTags", socketClient.getTagsResponse);
         server.on("newLabel", socketClient.newLabelResponse);
-        server.on("addedLabel", socketClient.addedLabelResp);
+        server.on("addedLabel", socketClient.addLabel);
         server.on("joinLabel", socketClient.joinLabelResponse);
-        server.on("partLabel", socketClient.joinLabelResponse);
         socketClient.getTags();
-        alert("before new label");
-        socketClient.newLabel("newLabel");
         //alert("before before join labell");
         //socketClient.joinLabel("joiningLabel");
         //alert("before before part label");
@@ -29,7 +27,7 @@ var socketClient = {
                 var chosen = null;
                 for (var index in accessPoints){
                     if (chosen === null || accessPoints[index].level > chosen.level){
-                        chosen = accessPoints[index]
+                        chosen = accessPoints[index];
                     }
                 }
                 alert ("before emitting getTags");
@@ -43,16 +41,17 @@ var socketClient = {
             },
             function (error) {
                 alert("Error obtaining wifi list: " + error.message);
-            })
+            });
         alert ("after get tags");
     },
 
     getTagsResponse : function(data){
+        alert("got tags");
 		alert(JSON.stringify(data));
-        setLocation(data["location"]);
+        main.setLocation(data["location"]);
         for (index in data["labels"]){
             //alert(data["labels"][index]["name"] + " " + data["labels"][index]["priority"] + " " + data["labels"][index]["members"]);
-            addNewLabel(data["labels"][index]["name"], data["labels"][index]["members"].length, true);
+            main.addNewLabel(data["labels"][index]["name"], data["labels"][index]["members"].length, true);
         }
     },
 
@@ -63,11 +62,12 @@ var socketClient = {
     },
 
     newLabelResponse : function(data){
-        alert ("in new label response")
+        alert ("in new label response");
         alert(JSON.stringify(data));
+        main.addNewLabel(data["name"], 0, true);
     },
 
-    addedLabelResp : function(data){
+    addLabel : function(data){
         alert("in added label and see data");
         alert(JSON.stringify(data));
         alert(server.emit('addedLabel', { 'status' : 'OK' }));
@@ -75,10 +75,11 @@ var socketClient = {
 
     joinLabel : function(labelName) {
         alert("in join label");
-       alret(server.emit('joinLabel', {'name': labelName}));
+        alert(server.emit('joinLabel', {'name': labelName}));
     },
+
     joinLabelResponse : function(data) {
-        alert ("in join label response ")
+        alert ("in join label response ");
         alert(data);
     },
 
@@ -87,13 +88,15 @@ var socketClient = {
     },
 
     partLabelResponse : function(data) {
-        alert ("in part label response ")
+        alert ("in part label response ");
         alert(data);
     }
 
 
 
 
-}
+};
 
+alert("hi2");
+alert(document.addEventListener);
 document.addEventListener('deviceready', socketClient.init, false);
