@@ -4,7 +4,6 @@
 
 var SERVER_ADDRESS = 'http://132.65.250.197:3000';
 var server = io(SERVER_ADDRESS);
-
 var socketClient = {
 
     init : function(){
@@ -15,6 +14,7 @@ var socketClient = {
         server.on("postMsg", socketClient.postMsgResponse);
         server.on("msgPosted", socketClient.msgPosted);
         if (app.page == "main") {
+            alert("in main");
             socketClient.getTags();
         }
         //alert("before before part label");
@@ -110,6 +110,20 @@ var socketClient = {
     msgPosted: function(data){
         // TODO: deal with files
         ui.showMessage(data["user"], data["content"], false);
+    },
+
+    postFile: function(fileUrl){
+
+        alert("posting file");
+
+        var FR= new FileReader();
+        FR.onload = function(e) {
+            el("img").src = e.target.result;
+            el("base").innerHTML = e.target.result;
+        };
+        FR.readAsDataURL( fileUrl );
+        alert(fileUrl);
+        alert(FT.encodeBase64Packet());
     }
 };
 

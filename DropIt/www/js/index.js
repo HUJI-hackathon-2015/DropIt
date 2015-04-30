@@ -41,8 +41,9 @@ var app = {
         alert(window.plugins.webintent.getExtra);
         alert(window.plugins.webintent.EXTRA_STREAM);
         window.plugins.webintent.getExtra(webintent.EXTRA_STREAM,
-            function (url , a)
+            function (url)
             {
+                alert("inside EXTRA_STREAM");
                 app.mode = "share";
                 app.shareTarget = url;
 

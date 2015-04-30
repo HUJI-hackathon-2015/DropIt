@@ -14,6 +14,7 @@ var main = {
         var link = $("<a>").addClass("tag-button link2").addClass("link" + (((children-1)%5)+1));
         link.data({"population": population}).html("<br/>#" + name);
         if (app.mode === "share"){
+            alert ( "in if share");
             link.on("click", null, name, main.postFile);
         } else {
             link.on("click", null, name, main.goChat);
@@ -28,8 +29,8 @@ var main = {
     },
 
     postFile: function(event){
-        alert("Shared!")
-        _loadOne(app.shareTarget);
+        alert("Shared!");
+        socketClient.postFile(app.shareTarget);
 
     },
 
