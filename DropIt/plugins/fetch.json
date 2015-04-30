@@ -4,5 +4,11 @@
             "type": "registry",
             "id": "nl.nielsad.cordova.wifiscanner"
         }
+    },
+    "org.apache.cordova.device": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.device"
+        }
     }
 }

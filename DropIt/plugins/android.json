@@ -11,6 +11,10 @@
                         {
                             "xml": "<feature name=\"WifiScanner\"><param name=\"android-package\" value=\"nl.nielsad.cordova.wifiscanner.WifiListener\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -33,6 +37,9 @@
     },
     "installed_plugins": {
         "nl.nielsad.cordova.wifiscanner": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "org.apache.cordova.device": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },

@@ -13,4 +13,7 @@
     <feature name="WifiScanner">
         <param name="android-package" value="nl.nielsad.cordova.wifiscanner.WifiListener" />
     </feature>
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
 </widget>
