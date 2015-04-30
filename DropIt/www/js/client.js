@@ -4,18 +4,16 @@
 
 var SERVER_ADDRESS = 'http://132.65.250.197:3000';
 var server = io(SERVER_ADDRESS);
+
 var socketClient = {
 
     init : function(){
-        alert ("in init");
         server.on("getTags", socketClient.getTagsResponse);
         server.on("newLabel", socketClient.newLabelResponse);
-        server.on("addedLabel", socketClient.addLabel);
+        server.on("addedLabel", socketClient.addedLabelResp);
         server.on("joinLabel", socketClient.joinLabelResponse);
-        server.on("partLabel", socketClient.partLabelResponse());
-        server.on("msgPosted", socketClient.msgPosted());
-        //alert("before getTags");
-        //socketClient.getTags();
+        server.on("partLabel", socketClient.joinLabelResponse);
+        socketClient.getTags();
         alert("before new label");
         socketClient.newLabel("newLabel");
         //alert("before before join labell");
@@ -26,6 +24,7 @@ var socketClient = {
 
     getTags: function ()
     {
+        alert ("in get tags");
         navigator.wifi.getAccessPoints(function (accessPoints) {
                 var chosen = null;
                 for (var index in accessPoints){
@@ -33,6 +32,10 @@ var socketClient = {
                         chosen = accessPoints[index]
                     }
                 }
+                alert ("before emitting getTags");
+                alert ("chosen Bssis: " +  chosen.BSSID);
+                alert("uid: " + cordova.plugins.uid.IMEI);
+
                 server.emit('getTags', {
                     'BSSID' : chosen.BSSID,
                     'user' : cordova.plugins.uid.IMEI
@@ -41,12 +44,14 @@ var socketClient = {
             function (error) {
                 alert("Error obtaining wifi list: " + error.message);
             })
+        alert ("after get tags");
     },
 
     getTagsResponse : function(data){
-        setLocation(data["location"]);
 		alert(JSON.stringify(data));
+        setLocation(data["location"]);
         for (index in data["labels"]){
+            //alert(data["labels"][index]["name"] + " " + data["labels"][index]["priority"] + " " + data["labels"][index]["members"]);
             addNewLabel(data["labels"][index]["name"], data["labels"][index]["members"].length, true);
         }
     },
@@ -62,14 +67,15 @@ var socketClient = {
         alert(JSON.stringify(data));
     },
 
-    addLabel : function(data){
-        addNewLabel(data["name"], 0, false)
-        server.emit('addedLabel', { 'status' : 'OK' });
+    addedLabelResp : function(data){
+        alert("in added label and see data");
+        alert(JSON.stringify(data));
+        alert(server.emit('addedLabel', { 'status' : 'OK' }));
     },
-    
+
     joinLabel : function(labelName) {
         alert("in join label");
-        alret(server.emit('joinLabel', {'name': labelName}));
+       alret(server.emit('joinLabel', {'name': labelName}));
     },
     joinLabelResponse : function(data) {
         alert ("in join label response ")
@@ -81,20 +87,13 @@ var socketClient = {
     },
 
     partLabelResponse : function(data) {
-        alert("in part label response ")
-        alert(JSON.stringify(data));
-    },
-
-    postMsg : function (msg) {
-        alert ("in postMsg");
-        socket.emit('sendchat', msg);
-    },
-
-    msgPosted : function(date) {
-        alert ("in post message response ");
-        alert(JSON.stringify(data));
+        alert ("in part label response ")
+        alert(data);
     }
 
-};
-alert ("calling init");
+
+
+
+}
+
 document.addEventListener('deviceready', socketClient.init, false);
