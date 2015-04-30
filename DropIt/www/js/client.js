@@ -14,8 +14,8 @@ var socketClient = {
         server.on("addedLabel", socketClient.addLabel);
         server.on("joinLabel", socketClient.joinLabelResponse);
         socketClient.getTags();
-        //alert("before before join labell");
-        //socketClient.joinLabel("joiningLabel");
+        alert("before before join label");
+        socketClient.joinLabel("joiningLabel");
         //alert("before before part label");
         //socketClient.partLabel("partingLabel")
     },
@@ -75,7 +75,8 @@ var socketClient = {
 
     joinLabel : function(labelName) {
         alert("in join label");
-        alert(server.emit('joinLabel', {'name': labelName}));
+        server.emit('joinLabel', {'name': labelName});
+
     },
 
     joinLabelResponse : function(data) {
