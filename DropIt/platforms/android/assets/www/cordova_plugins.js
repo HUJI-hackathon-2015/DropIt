@@ -48,6 +48,13 @@ module.exports = [
         "clobbers": [
             "WebIntent"
         ]
+    },
+    {
+        "file": "plugins/com.phearme.cordovaplugin.ContentProviderPlugin/www/ContentProviderPlugin.js",
+        "id": "com.phearme.cordovaplugin.ContentProviderPlugin.ContentProviderPlugin",
+        "clobbers": [
+            "contentproviderplugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -57,7 +64,8 @@ module.exports.metadata =
     "org.apache.cordova.device": "0.3.0",
     "org.hygieiasoft.cordova.uid": "1.1.0",
     "org.apache.cordova.dialogs": "0.3.0",
-    "com.borismus.webintent": "1.0.0"
+    "com.borismus.webintent": "1.0.0",
+    "com.phearme.cordovaplugin.ContentProviderPlugin": "0.2.7"
 }
 // BOTTOM OF METADATA
 });
