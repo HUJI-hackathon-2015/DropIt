@@ -55,7 +55,9 @@
             alert(name);
             // If not canceled
             if (name !== null) {
+                alert("calling newLabel");
                 socketClient.newLabel(name);
+                alert("finished newLabel");
             }
         });
 
