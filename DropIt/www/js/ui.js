@@ -50,9 +50,12 @@ var chatUI = {
         $(".nav2text").text(chatUI.room);
         $("#field-2").keypress(function (e) {
             if (e.which == 13) {
-                chatUI.sendMessage()
+                chatUI.sendMessage();
                 return false;
             }
+        });
+        $(".attach").on("click", function(){
+            chatUI.takePicture(chatUI.room);
         });
     },
 
@@ -82,8 +85,29 @@ var chatUI = {
 
     },
 
-    showFile: function(){
-
+    showFile: function(user, message, fromMe){
+        var chat = $(".chatcolumns");
+        var column = $("<div>").addClass("w-col w-col-2 w-clearfix")
+        var bubble = $("<div>").addClass("bubble1");
+        if (fromMe){
+            bubble.addClass("bubble-2");
+        }
+        else{
+            column.addClass("column1");
+        }
+        bubble.append($("<div>").addClass("example-text").text(user + ": " + message)).on("click", null,
+            {"uri" : message},
+            function(event, data){
+                alert(JSON.stringify(uri));
+                window.plugins.webintent.startActivity({
+                        action: window.plugins.webintent.ACTION_VIEW,
+                        url: data["uri"]},
+                    function() {alert("Success")},
+                    function() {alert('Failed to open URL via Android Intent');}
+                );
+            });
+        column.append(bubble);
+        chat.append(column);
     },
 
     loadHistory: function(){
@@ -91,7 +115,8 @@ var chatUI = {
     },
     takePicture: function (label) {
 
-        alert("before navigator")
+        alert("before navigator: " + label)
+        alert(navigator.camera.getPicture);
         navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
             destinationType: Camera.DestinationType.DATA_URL
         });

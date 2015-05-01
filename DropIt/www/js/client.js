@@ -86,7 +86,13 @@ var socketClient = {
     },
 
     msgPosted: function(data){
-        chatUI.showMessage(data["user"], data["content"], false);
+        if (data["type"] == "text") {
+            chatUI.showMessage(data["user"], data["content"], false);
+        } else if  (data["type"] == "file") {
+            chatUI.showFile(data["user"], data["content"], false);
+        } else {
+            alert("Unknown msg recieved")
+        }
     },
 
 
