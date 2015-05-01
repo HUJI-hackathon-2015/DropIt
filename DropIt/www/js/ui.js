@@ -14,7 +14,6 @@ var main = {
         var link = $("<a>").addClass("tag-button link2").addClass("link" + (((children-1)%5)+1));
         link.data({"population": population}).html("<br/>" + name);
         if (app.mode === "share"){
-            alert ( "in if share");
             link.on("click", null, name, main.postFile);
         } else {
             link.on("click", null, name, main.goChat);
@@ -29,15 +28,14 @@ var main = {
     },
 
     postFile: function(event){
-        alert("Shared!");
         socketClient.postFile(app.shareTarget);
 
     },
 
     loadChat: function(room, members){
-        localStorage.setItem("room", room);
-        localStorage.setItem("members", members);
-        window.location.replace("label-page.html");
+        sessionStorage.setItem("room", room);
+        sessionStorage.setItem("members", members);
+        window.location = "label-page.html";
     }
 };
 
@@ -47,12 +45,11 @@ var chatUI = {
     members : null,
 
     init: function(){
-        chatUI.room = localStorage.getItem("room");
-        chatUI.members = localStorage.getItem("members");
+        chatUI.room = sessionStorage.getItem("room");
+        chatUI.members = sessionStorage.getItem("members");
         $(".nav2text").text(chatUI.room);
         $("#field-2").keypress(function (e) {
             if (e.which == 13) {
-                alert("Enter");
                 chatUI.sendMessage()
                 return false;
             }
@@ -60,10 +57,8 @@ var chatUI = {
     },
 
     sendMessage: function(){
-        alert("in send message");
         var input = $("#field-2");
         socketClient.postMsg(chatUI.room, input.val())
-        alert("after send message");
         chatUI.showMessage("me", input.val(), true);
         input.val("");
     },

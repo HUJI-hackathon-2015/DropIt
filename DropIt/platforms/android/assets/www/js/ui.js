@@ -12,9 +12,8 @@ var main = {
         var children = list.children().size();
         var labelDiv = $("<div>").addClass("w-col w-col-2 w-col-stack");
         var link = $("<a>").addClass("tag-button link2").addClass("link" + (((children-1)%5)+1));
-        link.data({"population": population}).html("<br/>#" + name);
+        link.data({"population": population}).html("<br/>" + name);
         if (app.mode === "share"){
-            alert ( "in if share");
             link.on("click", null, name, main.postFile);
         } else {
             link.on("click", null, name, main.goChat);
@@ -29,41 +28,39 @@ var main = {
     },
 
     postFile: function(event){
-        alert("Shared!");
         socketClient.postFile(app.shareTarget);
 
     },
 
     loadChat: function(room, members){
-        alert("loadChat!");
-        sessionStorage.room = room;
-        alert("setRoom!");
-        sessionStorage.members = members;
-        alert("setMembers!");
-        window.location.replace("label-page.html");
+        sessionStorage.setItem("room", room);
+        sessionStorage.setItem("members", members);
+        window.location = "label-page.html";
     }
 };
 
 
-var chat = {
+var chatUI = {
     room : null,
     members : null,
 
     init: function(){
-        chat.room = sessionStorage.room;
-        chat.members = sessionStorage.members;
-        $(".nav2text").text(room);
+        chatUI.room = sessionStorage.getItem("room");
+        chatUI.members = sessionStorage.getItem("members");
+        $(".nav2text").text(chatUI.room);
         $("#field-2").keypress(function (e) {
             if (e.which == 13) {
-                chat.sendMessage()
+                chatUI.sendMessage()
                 return false;
             }
         });
     },
 
     sendMessage: function(){
-        socketClient.postMsg(chat.room, $("#field-2").val())
-        chat.showMessage(message, true);
+        var input = $("#field-2");
+        socketClient.postMsg(chatUI.room, input.val())
+        chatUI.showMessage("me", input.val(), true);
+        input.val("");
     },
 
     showMessage: function(user, message, fromMe){
@@ -71,7 +68,7 @@ var chat = {
         var column = $("<div>").addClass("w-col w-col-2 w-clearfix")
         var bubble = $("<div>").addClass("bubble1");
         if (fromMe){
-            bubble.addClass("bubble2");
+            bubble.addClass("bubble-2");
         }
         else{
             column.addClass("column1");

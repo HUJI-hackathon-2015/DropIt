@@ -60,14 +60,26 @@ a {
   text-align: center;
   text-decoration: none;
 }
+@media (max-width: 767px) {
+}
 @media (max-width: 479px) {
   body {
+    height: 640px;
     background-image: url('../images/cloud pattern-01.jpg');
     background-size: cover;
   }
   a {
-    color: #fab700;
+    width: 111px;
+    height: 46px;
+    padding-left: 15px;
+    float: left;
+    -webkit-transform: translate(0px, -5px) translate(-8px, 0px) translate(8px, -5px);
+    -ms-transform: translate(0px, -5px) translate(-8px, 0px) translate(8px, -5px);
+    transform: translate(0px, -5px) translate(-8px, 0px) translate(8px, -5px);
+    font-family:'Varela Round', sans-serif;
+    color: white;
     font-size: 17px;
+    line-height: 41px;
     font-weight: 700;
     text-decoration: none;
   }
@@ -83,26 +95,27 @@ a {
     height: 640px;
   }
   .user-location {
-    -webkit-transform: translate(108px, 20px) translate(5px, -34px) translate(-5px, 0px) translate(0px, -5px);
-    -ms-transform: translate(108px, 20px) translate(5px, -34px) translate(-5px, 0px) translate(0px, -5px);
-    transform: translate(108px, 20px) translate(5px, -34px) translate(-5px, 0px) translate(0px, -5px);
+    width: 207px;
+    -webkit-transform: translate(106px, -29px);
+    -ms-transform: translate(106px, -29px);
+    transform: translate(106px, -29px);
     font-family:'Varela Round', sans-serif;
     color: white;
-    font-size: 16px;
+    font-size: 18px;
     letter-spacing: 1px;
   }
   .test-logo {
-    -webkit-transform: translate(0px, 10px);
-    -ms-transform: translate(0px, 10px);
-    transform: translate(0px, 10px);
+    -webkit-transform: translate(0px, 10px) translate(13px, 8px);
+    -ms-transform: translate(0px, 10px) translate(13px, 8px);
+    transform: translate(0px, 10px) translate(13px, 8px);
   }
   .navmenu {
     width: 102px;
   }
   .navbar {
-    height: 60px;
+    height: 70px;
     background-color: #0087b8;
-    box-shadow: rgba(0, 0, 0, 0.47) 1px 1px 37px -10px;
+    box-shadow: rgba(0, 0, 0, 0.97) 0px 1px 32px -6px;
     color: #3b2d2d;
   }
   .main-screen-items {
@@ -132,6 +145,8 @@ a {
     width: 360px;
     height: 75px;
     background-color: #3bafda;
+    -webkit-transition: background-color 400ms ease;
+    transition: background-color 400ms ease;
     font-family:'Varela Round', sans-serif;
     color: white;
     font-size: 25px;
@@ -140,6 +155,11 @@ a {
     text-align: center;
     text-decoration: none;
     text-indent: 0px;
+  }
+  .link1.tag-button:active {
+    background-color: #c2c2c2;
+    -webkit-transition-duration: 550ms;
+    transition-duration: 550ms;
   }
   .link3.tag-button {
     background-color: #69ccf0;
@@ -164,12 +184,12 @@ a {
   }
   .chatpage {
     height: 640px;
-    margin-bottom: -43px;
+    margin-bottom: 0px;
   }
   .nav2text {
-    -webkit-transform: translate(0px, 19px);
-    -ms-transform: translate(0px, 19px);
-    transform: translate(0px, 19px);
+    -webkit-transform: translate(-39px, 23px);
+    -ms-transform: translate(-39px, 23px);
+    transform: translate(-39px, 23px);
     font-family:'Varela Round', sans-serif;
     color: white;
     font-size: 25px;
@@ -187,6 +207,7 @@ a {
     transform: translate(0px, 77px);
   }
   .formtext {
+    height: 2px;
     margin-top: -59px;
     padding-top: 0px;
     padding-bottom: 0px;
@@ -204,6 +225,8 @@ a {
   .bubble1 {
     width: 221px;
     height: 50px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     float: left;
     border-style: solid;
     border-width: 1px;
@@ -242,15 +265,15 @@ a {
     text-align: right;
   }
   .back {
-    -webkit-transform: translate(16px, 18px);
-    -ms-transform: translate(16px, 18px);
-    transform: translate(16px, 18px);
+    -webkit-transform: translate(21px, 11px);
+    -ms-transform: translate(21px, 11px);
+    transform: translate(21px, 11px);
   }
   .folder {
     float: right;
-    -webkit-transform: translate(-14px, 13px);
-    -ms-transform: translate(-14px, 13px);
-    transform: translate(-14px, 13px);
+    -webkit-transform: translate(-18px, 16px);
+    -ms-transform: translate(-18px, 16px);
+    transform: translate(-18px, 16px);
   }
   .send {
     display: block;
@@ -262,13 +285,119 @@ a {
     font-size: 16px;
   }
   .chatinput {
-    margin-top: 27px;
+    height: 72px;
+    margin-top: 0px;
     margin-bottom: 0px;
     padding-top: 0px;
-    padding-bottom: 15px;
-    -webkit-transform: translate(0px, 84px);
-    -ms-transform: translate(0px, 84px);
-    transform: translate(0px, 84px);
+    padding-bottom: 0px;
+    -webkit-transform: translate(0px, 3px);
+    -ms-transform: translate(0px, 3px);
+    transform: translate(0px, 3px);
+  }
+  .attachment-button {
+    float: right;
+    -webkit-transform: translate(235px, -250px);
+    -ms-transform: translate(235px, -250px);
+    transform: translate(235px, -250px);
+  }
+  .add-button {
+    float: right;
+    -webkit-transform: translate(-20px, 13px);
+    -ms-transform: translate(-20px, 13px);
+    transform: translate(-20px, 13px);
+    -webkit-transition: -webkit-transform 200ms ease;
+    transition: transform 200ms ease;
+  }
+  .add-button:hover {
+    -webkit-transform: translate(-19px, 14px);
+    -ms-transform: translate(-19px, 14px);
+    transform: translate(-19px, 14px);
+    -webkit-transition-property: none;
+    transition-property: none;
+    -webkit-transition-timing-function: ease;
+    transition-timing-function: ease;
+  }
+  .attach {
+    -webkit-transform: translate(251px, 18px);
+    -ms-transform: translate(251px, 18px);
+    transform: translate(251px, 18px);
+    -webkit-transition: -webkit-transform 200ms ease;
+    transition: transform 200ms ease;
+  }
+  .attach:active {
+    -webkit-transform: translate(249px, 18px) translate(4px, 2px);
+    -ms-transform: translate(249px, 18px) translate(4px, 2px);
+    transform: translate(249px, 18px) translate(4px, 2px);
+  }
+  .new-button {
+    float: right;
+    -webkit-transform: translate(-12px, 12px);
+    -ms-transform: translate(-12px, 12px);
+    transform: translate(-12px, 12px);
+    -webkit-transition: -webkit-transform 200ms ease;
+    transition: transform 200ms ease;
+  }
+  .new-button:active {
+    -webkit-transform: translate(-17px, 11px) translate(7px, 2px);
+    -ms-transform: translate(-17px, 11px) translate(7px, 2px);
+    transform: translate(-17px, 11px) translate(7px, 2px);
+  }
+  .form {
+    -webkit-transform: translate(0px, -25px);
+    -ms-transform: translate(0px, -25px);
+    transform: translate(0px, -25px);
+  }
+  .brand {
+    height: 69px;
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
+  }
+  .brand:active {
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
+    color: #ffc303;
+  }
+  .other-attach-button {
+    -webkit-transform: translate(0px, -5px) translate(0px, -25px);
+    -ms-transform: translate(0px, -5px) translate(0px, -25px);
+    transform: translate(0px, -5px) translate(0px, -25px);
+  }
+  .splash {
+    width: 360px;
+    height: 640px;
+    background-image: url('../images/new splash-01.jpg');
+    background-size: cover;
+  }
+  .start {
+    width: 127px;
+    height: 60px;
+    float: none;
+    -webkit-transform: translate(-127px, -5px);
+    -ms-transform: translate(-127px, -5px);
+    transform: translate(-127px, -5px);
+    text-align: center;
+  }
+  .started {
+    width: 123px;
+    border-radius: 10px;
+    background-color: #006c94;
+    box-shadow: rgba(1, 36, 48, 0.65) -1px 1px 0px 1px;
+    -webkit-transform: translate(120px, 400px);
+    -ms-transform: translate(120px, 400px);
+    transform: translate(120px, 400px);
+    -webkit-transition: -webkit-transform 350ms ease;
+    transition: transform 350ms ease;
+    line-height: 43px;
+    font-weight: 400;
+  }
+  .started:active {
+    background-color: #ffc303;
+    box-shadow: rgba(48, 3, 1, 0.65) -1px 1px 8px 1px;
+    -webkit-transform: translate(120px, 400px) translate(-1px, -1px);
+    -ms-transform: translate(120px, 400px) translate(-1px, -1px);
+    transform: translate(120px, 400px) translate(-1px, -1px);
   }
 }
 

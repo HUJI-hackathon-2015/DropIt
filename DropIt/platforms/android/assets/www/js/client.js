@@ -13,10 +13,7 @@ var socketClient = {
         server.on("joinLabel", socketClient.joinLabelResponse);
         server.on("postMsg", socketClient.postMsgResponse);
         server.on("msgPosted", socketClient.msgPosted);
-        if (app.page == "main") {
-            alert("in main");
-            socketClient.getTags();
-        }
+        socketClient.getTags();
         //alert("before before part label");
         //socketClient.partLabel("partingLabel")
     },
@@ -30,9 +27,6 @@ var socketClient = {
                         chosen = accessPoints[index];
                     }
                 }
-                alert ("before emitting getTags");
-                alert ("chosen Bssis: " +  chosen.BSSID);
-                alert("uid: " + cordova.plugins.uid.IMEI);
 
                 server.emit('getTags', {
                     'BSSID' : chosen.BSSID,
@@ -45,54 +39,39 @@ var socketClient = {
     },
 
     getTagsResponse : function(data){
-        main.setLocation(data["location"]);
+        main.setLocation(data["user"] + "@" + data["location"]);
         for (index in data["labels"]){
-            alert(JSON.stringify(data["labels"][index]));
-            //alert(data["labels"][index]["name"] + " " + data["labels"][index]["priority"] + " " + data["labels"][index]["members"]);
             main.addNewLabel(data["labels"][index]["name"], data["labels"][index]["members"].length, true);
         }
     },
 
     newLabel : function(name){
-        alert ("newLabel");
-        //server.emit("newLabel", {'name': name})
         server.emit("newLabel", {'name': name})
     },
 
     newLabelResponse : function(data){
-        alert ("in new label response");
-        alert(JSON.stringify(data));
 
     },
 
     addLabel : function(data){
-        alert("in added label and see data");
-        alert(JSON.stringify(data));
         main.addNewLabel(data["name"], 0, true);
-        alert(server.emit('addedLabel', { 'status' : 'OK' }));
+        server.emit('addedLabel', { 'status' : 'OK' });
     },
 
     joinLabel : function(labelName) {
-        alert("in join label");
         server.emit('joinLabel', {'name': labelName});
 
     },
 
     joinLabelResponse : function(data) {
-        alert ("in join label response ");
-        alert(JSON.stringify(data));
-        alert(JSON.stringify(data["name"]));
-        alert(JSON.stringify(data["members"]));
         main.loadChat(data["name"], data["members"]);
     },
 
     partLabel : function(labelName) {
-        alert(server.emit('partLabel', {'name': 'somePartLabelName'}))
+        server.emit('partLabel', {'name': 'somePartLabelName'});
     },
 
     partLabelResponse : function(data) {
-        alert ("in part label response ");
-        alert(data);
     },
 
     postMsg: function(label, msg){
@@ -104,26 +83,52 @@ var socketClient = {
     },
 
     postMsgResponse: function(data){
-
     },
 
     msgPosted: function(data){
-        // TODO: deal with files
-        ui.showMessage(data["user"], data["content"], false);
+        chatUI.showMessage(data["user"], data["content"], false);
     },
 
     postFile: function(fileUrl){
+        alert("posting file: " + fileUrl);
+        alert(window.plugins.contentproviderplugin.query);
+        window.plugins.contentproviderplugin.query({
+            contentUri: fileUrl
+        }, function (data) {
+            alert("after posting");
+            //alert(JSON.stringify(data));
+            for (index in data) {
+                var name = data[index]["_display_name"];
 
-        alert("posting file");
+                alert("before reading");
+                var FR = new FileReader();
+                FR.onload = function (e) {
+                    alert("done reading ");
+                    alert("done reading " + name);
+                    alert(e.target.result);
+                    //el("img").src = e.target.result;
+                    //el("base").innerHTML = e.target.result;
+                };
+                FR.onerror = function(error) {
+                    alert("error");
+                    alert("in error: " + error.message);
+                };
+                FR.onloadstart = function(){
+                    alert("Started loading");
+                }
+                alert("Trying to read");
+                cordova.file.externalRootDirectory
+                alert(FR.readAsDataURL);
+                alert(data[index]["_data"]);
+                FR.readAsDataURL(data[index]["_data"]);
+                alert("Read");
+            }
 
-        var FR= new FileReader();
-        FR.onload = function(e) {
-            el("img").src = e.target.result;
-            el("base").innerHTML = e.target.result;
-        };
-        FR.readAsDataURL( fileUrl );
-        alert(fileUrl);
-        alert(FT.encodeBase64Packet());
+
+        }, function (err) {
+            alert("error query");
+        });
+
     }
 };
 

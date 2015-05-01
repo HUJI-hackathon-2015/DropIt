@@ -39,58 +39,42 @@ var socketClient = {
     },
 
     getTagsResponse : function(data){
-        main.setLocation(data["location"]);
+        main.setLocation(data["user"] + "@" + data["location"]);
         for (index in data["labels"]){
-            //alert(JSON.stringify(data["labels"][index]));
-            //alert(data["labels"][index]["name"] + " " + data["labels"][index]["priority"] + " " + data["labels"][index]["members"]);
             main.addNewLabel(data["labels"][index]["name"], data["labels"][index]["members"].length, true);
         }
     },
 
     newLabel : function(name){
-        alert ("newLabel");
-        //server.emit("newLabel", {'name': name})
         server.emit("newLabel", {'name': name})
     },
 
     newLabelResponse : function(data){
-        alert ("in new label response");
-        alert(JSON.stringify(data));
 
     },
 
     addLabel : function(data){
-        alert("in added label and see data");
-        alert(JSON.stringify(data));
         main.addNewLabel(data["name"], 0, true);
-        alert(server.emit('addedLabel', { 'status' : 'OK' }));
+        server.emit('addedLabel', { 'status' : 'OK' });
     },
 
     joinLabel : function(labelName) {
-        alert("in join label");
         server.emit('joinLabel', {'name': labelName});
 
     },
 
     joinLabelResponse : function(data) {
-        alert ("in join label response ");
-        alert(JSON.stringify(data));
-        alert(JSON.stringify(data["name"]));
-        alert(JSON.stringify(data["members"]));
         main.loadChat(data["name"], data["members"]);
     },
 
     partLabel : function(labelName) {
-        alert(server.emit('partLabel', {'name': 'somePartLabelName'}))
+        server.emit('partLabel', {'name': 'somePartLabelName'});
     },
 
     partLabelResponse : function(data) {
-        alert ("in part label response ");
-        alert(data);
     },
 
     postMsg: function(label, msg){
-        alert("in post message")
         server.emit('postMsg', {
             "label" : label,
             "type" : "text",
@@ -99,12 +83,9 @@ var socketClient = {
     },
 
     postMsgResponse: function(data){
-        alert("got response")
     },
 
     msgPosted: function(data){
-        // TODO: deal with files
-        alert("got msg")
         chatUI.showMessage(data["user"], data["content"], false);
     },
 
