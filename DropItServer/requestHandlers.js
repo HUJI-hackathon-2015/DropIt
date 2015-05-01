@@ -5,6 +5,7 @@ var dataUtils = require(__base + 'dataUtils.js');
 var deepcopy = require('deepcopy');
 var Buffer = require('Buffer');
 var fs = require('fs');
+var defs = require(__base + 'www/defs.js');
 
 module.exports.getTagsHandler = function(socket, data, serverState) {
     console.log('Got getTags from ' + socket.id);
@@ -59,10 +60,9 @@ module.exports.partLabelHandler = function(socket, data, serverState) {
 }
 
 
-function postMessages(labels, serverState, socket, postLabel, msgToPost) {
+function postMessages(labels, serverState, socket, postLabel, msgToPost, isFullBroadcast) {
     console.log("About to post messages");
     for (var i = 0; i <  labels.length; i++) {
-        console.log("Current label is label " + JSON.stringify(labels[i]));
         if (labels[i].name == postLabel) {
             var sentList = [];
             if (labels[i].members == undefined) {
@@ -76,7 +76,13 @@ function postMessages(labels, serverState, socket, postLabel, msgToPost) {
                 }
                 msgToPost.user = dataUtils.getNameFromIMEI(originatedUser.imei, serverState);
                 console.log('Current User is ' + labels[i].members);
-                if ((user.uid != socket.id) && (sentList.indexOf(user.uid) == -1)) {
+                var broadcastCondition = false;
+                if (isFullBroadcast) {
+                    broadcastCondition = true;
+                } else {
+                    broadcastCondition = (user.uid != socket.id);
+                }
+                if ((broadcastCondition) && (sentList.indexOf(user.uid) == -1)) {
                     sentList.push(user.uid);
                     user.socket.emit('msgPosted', msgToPost);
                 }
@@ -96,19 +102,19 @@ module.exports.postMsg = function(socket, data, serverState) {
     // save file to disc
     if (data.type == 'file') {
         var fileBuff = new Buffer(data.content, 'base64');
-        fs.writeFile(__base + 'uploads/' + data.filename, fileBuff, function (err) {
+        fs.writeFile(__base + 'uploads/' + data.fileName, fileBuff, function (err) {
             if (err) {
                 console.log("error while writing uploaded file " +  err);
                 return;
             }
-            var newData = {label: data.label, type: data.type, user: data.user, content: 'http://132.65.250.197:3000/uploads/' + data.filename};
-            postMessages(labels, serverState, socket, data.label, newData );
+            var newData = {label: data.label, type: data.type, user: data.user, content: 'http://' + defs.SERVER_HOST + '/uploads/' + data.fileName};
+            postMessages(labels, serverState, socket, data.label, newData , true);
 
         })
 
         //var newData = {label: data.label, type: data.type, user: data.user, content: 'http://132.65.250.197:3000/uploads/' + data.filename};
     } else {
 
-        postMessages(labels, serverState, socket, data.label, data );
+        postMessages(labels, serverState, socket, data.label, data, false );
     }
 }

@@ -3,3 +3,5 @@
  */
 
 SERVER_HOST = '132.65.250.197:3000';
+
+module.exports.SERVER_HOST = SERVER_HOST;

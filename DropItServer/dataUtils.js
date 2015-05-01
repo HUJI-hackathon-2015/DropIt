@@ -75,7 +75,8 @@ module.exports.getRoom = function(bssid, serverState) {
         }
     }
 
-    return "Unknown Room";
+    //return "Unknown Room";
+    return "Aquarium A";
 };
 
 

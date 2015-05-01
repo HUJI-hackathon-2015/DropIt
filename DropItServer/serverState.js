@@ -3,7 +3,8 @@
  */
 
 module.exports.connectedUsers = [{uid: 'aaaaaaa', socket: null, 'imei': '11111', 'bssid': 'FF:4b:e1:1c:79:02'}];
-module.exports.labels = {'Aquarium A' : [{name: 'First Label!', members: ['352136063452433']}, {name: '2nd Label!', members: ['352136063452433']}, {name: '3rd Label!', members: ['352136063452433']}, {name: '4th Label!', members: ['352136063452433']}, {name: '5th Label!', members: ['352136063452433']}, {name: '6th Label!', members: ['352136063452433']}, {name: '7th Label!', members: ['352136063452433']}, {'Unknown Room': []}]};
+module.exports.labels = {'Aquarium A' : [{name: 'Infi 4', members: ['352136063452433']}, {name: 'OS', members: ['352136063452433']}, {name: 'Algo', members: ['352136063452433']}],
+    'Unknown Room': []};
 
 module.exports.db = null;
 
@@ -34,12 +35,29 @@ module.exports.bssids = [
     {bssid: '98:4b:e1:1c:79:01',name: 'Aquarium A'},
     {bssid: '98:4b:e1:1c:69:61',name: 'Aquarium A'},
     {bssid: '2c:44:fd:a7:48:f2',name: 'Aquarium A'},
-    {bssid: '98:4b:e1:1c:79:03',name: 'Aquarium A'}
+    {bssid: '98:4b:e1:1c:79:03',name: 'Aquarium A'},
+    {bssid: '16:26:96:d8:78:85',name: 'Aquarium A'},
+    {bssid: '02:1a:11:ff:fb:2a',name: 'Aquarium A'},
+    {bssid: '98:4b:e1:1b:26:a1',name: 'Eng Audiorium'},
+    {bssid: '98:4b:e1:1b:26:a3',name: 'Eng Audiorium'},
+    {bssid: '98:4b:e1:1b:36:c4',name: 'Eng Audiorium'},
+    {bssid: '98:4b:e1:1b:26:a2',name: 'Eng Audiorium'},
+    {bssid: '98:4b:e1:1b:36:d1',name: 'Eng Audiorium'},
+    {bssid: '98:4b:e1:1b:36:d2',name: 'Eng Audiorium'},
+    {bssid: '98:4b:e1:1b:26:b2',name: 'Eng Audiorium'},
+    {bssid: '98:4b:e1:1b:26:b1',name: 'Eng Audiorium'},
+    {bssid: '98:4b:e1:1b:36:d4',name: 'Eng Audiorium'},
+    {bssid: '98:4b:e1:1b:26:b3',name: 'Eng Audiorium'},
+    {bssid: '98:4b:e1:1b:36:c1',name: 'Eng Audiorium'},
+    {bssid: '98:4b:e1:1b:36:c2',name: 'Eng Audiorium'},
+    {bssid: '3c:d9:2b:7f:01:c2',name: 'Eng Audiorium'},
+
 ];
 
 
 module.exports.imeis = {
-    '352136063452433' : 'Alon Bar',
-    '358239057148175': 'Tomer Levy',
-    '357631050173104': 'Lior Hammer',
+    '352136063452433' : 'Alon B',
+    '358239057148175': 'Tomer L',
+    '357631050173104': 'Lior H',
+    '353490068584883': 'Gal Y',
     '11111': '  '};
