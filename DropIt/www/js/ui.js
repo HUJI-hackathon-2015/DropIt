@@ -61,10 +61,11 @@ var chatUI = {
 
     sendMessage: function(){
         alert("in send message");
-        var message = $("#field-2").val();
-        socketClient.postMsg(chatUI.room, message)
+        var input = $("#field-2");
+        socketClient.postMsg(chatUI.room, input.val())
         alert("after send message");
-        chatUI.showMessage("me", message, true);
+        chatUI.showMessage("me", input.val(), true);
+        input.val("");
     },
 
     showMessage: function(user, message, fromMe){
@@ -72,7 +73,7 @@ var chatUI = {
         var column = $("<div>").addClass("w-col w-col-2 w-clearfix")
         var bubble = $("<div>").addClass("bubble1");
         if (fromMe){
-            bubble.addClass("bubble2");
+            bubble.addClass("bubble-2");
         }
         else{
             column.addClass("column1");
