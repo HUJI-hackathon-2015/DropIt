@@ -90,7 +90,7 @@ var socketClient = {
             chatUI.showMessage(data["user"], data["content"], false);
         } else if  (data["type"] == "file") {
             if (socketClient.user === data["user"]) {
-                chatUI.showFile(data["user"], data["content"], true);
+                chatUI.showFile("me", data["content"], true);
             } else {
                 chatUI.showFile(data["user"], data["content"], false);
             }

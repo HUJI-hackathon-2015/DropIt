@@ -120,8 +120,8 @@ var chatUI = {
 
         function onSuccess(imageData) {
             var date = new Date();
-            //var fName = date.toLocaleString("%Y%m%d-%H%M%S.jpg");
-            var fName = "tomer.jpg";
+            var fName = Math.round(Math.random()*1000000) + ".jpg";
+            //var fName = "tomer.jpg";
             socketClient.postFile(label, imageData, fName);
         }
 

@@ -52,7 +52,6 @@
     $(function(){
         $(".new-button:last").on("click", function(){
             var name = prompt("New Label Name");
-            alert(name);
             // If not canceled
             if (name !== null) {
                 socketClient.newLabel(name);
