@@ -98,11 +98,10 @@ var chatUI = {
         bubble.append($("<div>").addClass("example-text").text(user + ": " + message)).on("click", null,
             {"uri" : message},
             function(event, data){
-                alert(JSON.stringify(uri));
                 window.plugins.webintent.startActivity({
                         action: window.plugins.webintent.ACTION_VIEW,
-                        url: data["uri"]},
-                    function() {alert("Success")},
+                        url: event.data["uri"]},
+                    function() {},
                     function() {alert('Failed to open URL via Android Intent');}
                 );
             });
@@ -115,24 +114,19 @@ var chatUI = {
     },
     takePicture: function (label) {
 
-        alert("before navigator: " + label)
-        alert(navigator.camera.getPicture);
         navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
             destinationType: Camera.DestinationType.DATA_URL
         });
 
         function onSuccess(imageData) {
-            alert ("camera success");
-            var image = document.getElementById('myImage');
-            image.src = "data:image/jpeg;base64," + imageData;
             var date = new Date();
-            var fName = date.getDate();
-            socketClient.postFile(label, image, fName);
+            //var fName = date.toLocaleString("%Y%m%d-%H%M%S.jpg");
+            var fName = "tomer.jpg";
+            socketClient.postFile(label, imageData, fName);
         }
 
         function onFail(message) {
-            alert ("camera failure");
-            alert('Failed because: ' + message);
+            alert(message);
         }
     }
 };

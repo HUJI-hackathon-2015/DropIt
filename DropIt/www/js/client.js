@@ -5,6 +5,7 @@
 var SERVER_ADDRESS = 'http://132.65.250.197:3000';
 var server = io(SERVER_ADDRESS);
 var socketClient = {
+    user : null,
 
     init : function(){
         server.on("getTags", socketClient.getTagsResponse);
@@ -14,8 +15,6 @@ var socketClient = {
         server.on("postMsg", socketClient.postMsgResponse);
         server.on("msgPosted", socketClient.msgPosted);
         socketClient.getTags();
-        //alert("before before part label");
-        //socketClient.partLabel("partingLabel")
     },
 
     getTags: function ()
@@ -39,6 +38,7 @@ var socketClient = {
     },
 
     getTagsResponse : function(data){
+        socketClient.user = data["user"];
         main.setLocation(data["user"] + "@" + data["location"]);
         for (index in data["labels"]){
             main.addNewLabel(data["labels"][index]["name"], data["labels"][index]["members"].length, true);
@@ -89,15 +89,18 @@ var socketClient = {
         if (data["type"] == "text") {
             chatUI.showMessage(data["user"], data["content"], false);
         } else if  (data["type"] == "file") {
-            chatUI.showFile(data["user"], data["content"], false);
+            if (socketClient.user === data["user"]) {
+                chatUI.showFile(data["user"], data["content"], true);
+            } else {
+                chatUI.showFile(data["user"], data["content"], false);
+            }
         } else {
             alert("Unknown msg recieved")
         }
     },
 
 
-    postFile: function(label, msg, image, fName){
-        alert("before emitting file: ");
+    postFile: function(label, image, fName){
 
         server.emit('postMsg', {
             "label" : label,
@@ -105,48 +108,6 @@ var socketClient = {
             "content" : image,
             "fileName" : fName
         });
-        alert("after emmiting file: ");
-        //alert(window.plugins.contentproviderplugin.query);
-        //window.plugins.contentproviderplugin.query({
-        //    contentUri: fileUrl
-        //}, function (data) {
-        //    alert("after posting");
-        //    //alert(JSON.stringify(data));
-        //    for (index in data) {
-        //        var name = data[index]["_display_name"];
-        //
-        //        alert("ping");
-        //        var FR = new FileReader();
-        //        FR.onload = function (e) {
-        //            alert("done reading ");
-        //            alert("done reading " + name);
-        //            alert(e.target.result);
-        //            //el("img").src = e.target.result;
-        //            //el("base").innerHTML = e.target.result;
-        //        };
-        //        //FR.onerror = function(error) {
-        //        //    alert("error");
-        //        //    alert("in error: " + error.message);
-        //        //};
-        //        //FR.onloadstart = function(){
-        //        //    alert("Started loading");
-        //        //}
-        //        //alert("Trying to read externalRootDirectory()");
-        //        //cordova.file.externalRootDirectory();
-        //        //alert("trying to read: applicationStorageDirectory ");
-        //        //cordova.file.applicationStorageDirectory();
-        //        //alert("exteran data directory");
-        //        //cordova.file.externalDataDirectory();
-        //        //alert(FR.readAsDataURL);
-        //        //alert(data[index]["_data"]);
-        //        //FR.readAsDataURL(data[index]["_data"]);
-        //        alert("Read");
-        //    }
-        //
-        //
-        //}, function (err) {
-        //    alert("error query");
-        //});
 
     }
 };
