@@ -3,7 +3,7 @@
  */
 
 module.exports.connectedUsers = [{uid: 'aaaaaaa', socket: null, 'imei': '11111', 'bssid': 'FF:4b:e1:1c:79:02'}];
-module.exports.labels = {'Aquarium A' : [{name: 'First Label!', members: ['352136063452433']}, {name: '2nd Label!', members: ['352136063452433']}, {name: '3rd Label!', members: ['352136063452433']}, {name: '4th Label!', members: ['352136063452433']}, {name: '5th Label!', members: ['352136063452433']}, {name: '6th Label!', members: ['352136063452433']}, {name: '7th Label!', members: ['352136063452433']}]};
+module.exports.labels = {'Aquarium A' : [{name: 'First Label!', members: ['352136063452433']}, {name: '2nd Label!', members: ['352136063452433']}, {name: '3rd Label!', members: ['352136063452433']}, {name: '4th Label!', members: ['352136063452433']}, {name: '5th Label!', members: ['352136063452433']}, {name: '6th Label!', members: ['352136063452433']}, {name: '7th Label!', members: ['352136063452433']}, {'Unknown Room': []}]};
 
 module.exports.db = null;
 
@@ -33,7 +33,8 @@ module.exports.bssids = [
     {bssid: '98:4b:e1:1c:69:74',name: 'Aquarium A'},
     {bssid: '98:4b:e1:1c:79:01',name: 'Aquarium A'},
     {bssid: '98:4b:e1:1c:69:61',name: 'Aquarium A'},
-    {bssid: '2c:44:fd:a7:48:f2',name: 'Aquarium A'}
+    {bssid: '2c:44:fd:a7:48:f2',name: 'Aquarium A'},
+    {bssid: '98:4b:e1:1c:79:03',name: 'Aquarium A'}
 ];
 
 

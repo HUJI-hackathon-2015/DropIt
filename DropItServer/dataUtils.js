@@ -10,7 +10,7 @@ var fs = require("fs");
 
 module.exports.findUser = function(uid, serverState) {
    // var connectedUsers = util.inspect(jf.readFileSync(users_file)).a;
-
+    console.log("Asked for used with uid " + uid);
     for (var i = 0; i < serverState.connectedUsers.length; i++) {
         var userEntry = serverState.connectedUsers[i];
         if (userEntry['uid'] == uid) {
@@ -23,11 +23,15 @@ module.exports.findUser = function(uid, serverState) {
 
 module.exports.findUserByIMEI = function(imei, serverState) {
     //var connectedUsers = util.inspect(jf.readFileSync(users_file)).a;
-    for (var userEntry in serverState.connectedUsers) {
-        if (userEntry.imei == imei) {
-            return userEntry;
+    console.log("IMEI is " + imei);
+    for (var i = 0;i < serverState.connectedUsers.length; i++) {
+        console.log("User IMEI is " + serverState.connectedUsers[i].imei);
+        if (serverState.connectedUsers[i].imei == imei) {
+            return serverState.connectedUsers[i];
         }
     }
+    console.log("Out of loop");
+    return null;
 }
 
 module.exports.addUser = function(uid, socket, imei, bssid, serverState) {
@@ -66,7 +70,6 @@ module.exports.mystringify = function(str) {
 
 module.exports.getRoom = function(bssid, serverState) {
     for (var i = 0; i <  serverState.bssids.length; i++) {
-        console.log("current bssid is " + serverState.bssids[i].bssid);
         if (serverState.bssids[i].bssid == bssid) {
             return serverState.bssids[i].name;
         }

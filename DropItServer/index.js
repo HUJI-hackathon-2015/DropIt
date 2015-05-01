@@ -22,30 +22,36 @@ app.get('/defs.js', function (req, res) {
     res.sendfile(__dirname + '/www/defs.js');
 })
 
-    io.on('connection', function (socket) {
-        console.log("Got Incoming connection with ID " + socket.id);
-        socket.on('getTags', function (data) {
-            handlers.getTagsHandler(socket, data, serverState);
-        });
+app.get('/uploads/:filename', function(req, res) {
+    console.log('uploads request - ' + req.params.filename)
+    //res.send('AAA');
+    res.sendfile(__dirname + '/uploads/' + req.params.filename);
+})
 
-        socket.on('newLabel', function (data) {
-            handlers.newLabelHandler(socket, data, serverState, io);
-        });
+io.on('connection', function (socket) {
+    console.log("Got Incoming connection with ID " + socket.id);
+    socket.on('getTags', function (data) {
+        handlers.getTagsHandler(socket, data, serverState);
+    });
 
-        socket.on('joinLabel', function (data) {
-            handlers.joinLabelHandler(socket, data, serverState);
-        });
+    socket.on('newLabel', function (data) {
+        handlers.newLabelHandler(socket, data, serverState, io);
+    });
 
-        socket.on('partLabel', function (data) {
-            handlers.partLabelHandler(socket, data, serverState);
-        });
+    socket.on('joinLabel', function (data) {
+        handlers.joinLabelHandler(socket, data, serverState);
+    });
 
-        socket.on('postMsg', function (data) {
-            handlers.postMsg(socket, data, serverState);
-        });
+    socket.on('partLabel', function (data) {
+        handlers.partLabelHandler(socket, data, serverState);
+    });
 
-        socket.on('disconnect', function () {
-            dataUtils.removeUser(socket.id, serverState);
-            console.log('After disconnect - ' + dataUtils.mystringify(serverState.connectedUsers));
-        });
+    socket.on('postMsg', function (data) {
+        handlers.postMsg(socket, data, serverState);
+    });
+
+    socket.on('disconnect', function () {
+        dataUtils.removeUser(socket.id, serverState);
+        console.log('After disconnect - ' + dataUtils.mystringify(serverState.connectedUsers));
+    });
 });
