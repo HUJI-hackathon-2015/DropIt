@@ -86,48 +86,67 @@ var socketClient = {
     },
 
     msgPosted: function(data){
-        chatUI.showMessage(data["user"], data["content"], false);
+        if (data["type"] == "text") {
+            chatUI.showMessage(data["user"], data["content"], false);
+        } else if  (data["type"] == "file") {
+            chatUI.showFile(data["user"], data["content"], false);
+        } else {
+            alert("Unknown msg recieved")
+        }
     },
 
-    postFile: function(fileUrl){
-        alert("posting file: " + fileUrl);
-        alert(window.plugins.contentproviderplugin.query);
-        window.plugins.contentproviderplugin.query({
-            contentUri: fileUrl
-        }, function (data) {
-            alert("after posting");
-            //alert(JSON.stringify(data));
-            for (index in data) {
-                var name = data[index]["_display_name"];
 
-                alert("before reading");
-                var FR = new FileReader();
-                FR.onload = function (e) {
-                    alert("done reading ");
-                    alert("done reading " + name);
-                    alert(e.target.result);
-                    //el("img").src = e.target.result;
-                    //el("base").innerHTML = e.target.result;
-                };
-                FR.onerror = function(error) {
-                    alert("error");
-                    alert("in error: " + error.message);
-                };
-                FR.onloadstart = function(){
-                    alert("Started loading");
-                }
-                alert("Trying to read");
-                cordova.file.externalRootDirectory
-                alert(FR.readAsDataURL);
-                alert(data[index]["_data"]);
-                FR.readAsDataURL(data[index]["_data"]);
-                alert("Read");
-            }
+    postFile: function(label, msg, image, fName){
+        alert("before emitting file: ");
 
-
-        }, function (err) {
-            alert("error query");
+        server.emit('postMsg', {
+            "label" : label,
+            "type" : "file",
+            "content" : image,
+            "fileName" : fName
         });
+        alert("after emmiting file: ");
+        //alert(window.plugins.contentproviderplugin.query);
+        //window.plugins.contentproviderplugin.query({
+        //    contentUri: fileUrl
+        //}, function (data) {
+        //    alert("after posting");
+        //    //alert(JSON.stringify(data));
+        //    for (index in data) {
+        //        var name = data[index]["_display_name"];
+        //
+        //        alert("ping");
+        //        var FR = new FileReader();
+        //        FR.onload = function (e) {
+        //            alert("done reading ");
+        //            alert("done reading " + name);
+        //            alert(e.target.result);
+        //            //el("img").src = e.target.result;
+        //            //el("base").innerHTML = e.target.result;
+        //        };
+        //        //FR.onerror = function(error) {
+        //        //    alert("error");
+        //        //    alert("in error: " + error.message);
+        //        //};
+        //        //FR.onloadstart = function(){
+        //        //    alert("Started loading");
+        //        //}
+        //        //alert("Trying to read externalRootDirectory()");
+        //        //cordova.file.externalRootDirectory();
+        //        //alert("trying to read: applicationStorageDirectory ");
+        //        //cordova.file.applicationStorageDirectory();
+        //        //alert("exteran data directory");
+        //        //cordova.file.externalDataDirectory();
+        //        //alert(FR.readAsDataURL);
+        //        //alert(data[index]["_data"]);
+        //        //FR.readAsDataURL(data[index]["_data"]);
+        //        alert("Read");
+        //    }
+        //
+        //
+        //}, function (err) {
+        //    alert("error query");
+        //});
 
     }
 };
