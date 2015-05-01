@@ -42,5 +42,11 @@
             "url": "https://github.com/apache/cordova-plugin-file",
             "subdir": "."
         }
+    },
+    "org.apache.cordova.camera": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.camera"
+        }
     }
 }
