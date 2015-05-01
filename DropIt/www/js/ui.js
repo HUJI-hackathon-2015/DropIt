@@ -88,6 +88,27 @@ var chatUI = {
 
     loadHistory: function(){
 
+    },
+    takePicture: function (label) {
+
+        alert("before navigator")
+        navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+            destinationType: Camera.DestinationType.DATA_URL
+        });
+
+        function onSuccess(imageData) {
+            alert ("camera success");
+            var image = document.getElementById('myImage');
+            image.src = "data:image/jpeg;base64," + imageData;
+            var date = new Date();
+            var fName = date.getDate();
+            socketClient.postFile(label, image, fName);
+        }
+
+        function onFail(message) {
+            alert ("camera failure");
+            alert('Failed because: ' + message);
+        }
     }
 };
 
