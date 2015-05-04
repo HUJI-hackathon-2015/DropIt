@@ -9,22 +9,6 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"WifiScanner\"><param name=\"android-package\" value=\"nl.nielsad.cordova.wifiscanner.WifiListener\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"UID\"><param name=\"android-package\" value=\"org.hygieiasoft.cordova.uid.UID\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Notification\"><param name=\"android-package\" value=\"org.apache.cordova.dialogs.Notification\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"WebIntent\"><param name=\"android-package\" value=\"com.borismus.webintent.WebIntent\" /></feature>",
                             "count": 1
                         },
@@ -37,7 +21,23 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"WifiScanner\"><param name=\"android-package\" value=\"nl.nielsad.cordova.wifiscanner.WifiListener\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Camera\"><param name=\"android-package\" value=\"org.apache.cordova.camera.CameraLauncher\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Notification\"><param name=\"android-package\" value=\"org.apache.cordova.dialogs.Notification\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"UID\"><param name=\"android-package\" value=\"org.hygieiasoft.cordova.uid.UID\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -46,6 +46,10 @@
             "AndroidManifest.xml": {
                 "parents": {
                     "/*": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+                            "count": 2
+                        },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\" />",
                             "count": 2
@@ -57,10 +61,6 @@
                         {
                             "xml": "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",
                             "count": 1
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
-                            "count": 2
                         }
                     ]
                 }
@@ -68,29 +68,29 @@
         }
     },
     "installed_plugins": {
-        "nl.nielsad.cordova.wifiscanner": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "org.apache.cordova.device": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "org.hygieiasoft.cordova.uid": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "org.apache.cordova.dialogs": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
         "com.borismus.webintent": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
+            "PACKAGE_NAME": "org.huji.dropit"
         },
         "com.phearme.cordovaplugin.ContentProviderPlugin": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
+            "PACKAGE_NAME": "org.huji.dropit"
         },
         "cordova-plugin-file": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
+            "PACKAGE_NAME": "org.huji.dropit"
+        },
+        "nl.nielsad.cordova.wifiscanner": {
+            "PACKAGE_NAME": "org.huji.dropit"
         },
         "org.apache.cordova.camera": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
+            "PACKAGE_NAME": "org.huji.dropit"
+        },
+        "org.apache.cordova.device": {
+            "PACKAGE_NAME": "org.huji.dropit"
+        },
+        "org.apache.cordova.dialogs": {
+            "PACKAGE_NAME": "org.huji.dropit"
+        },
+        "org.hygieiasoft.cordova.uid": {
+            "PACKAGE_NAME": "org.huji.dropit"
         }
     },
     "dependent_plugins": {}

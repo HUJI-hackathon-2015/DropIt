@@ -89,7 +89,13 @@ public class WebIntent extends CordovaPlugin {
                 String extraName = args.getString(0);
                 if (i.hasExtra(extraName)) {
                     //return new PluginResult(PluginResult.Status.OK, i.getStringExtra(extraName));
-                    callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, i.getStringExtra(extraName)));
+                    // Our fix
+                    String r = i.getStringExtra(extraName);
+                        if (null == r) {
+                            r = ((Uri) i.getParcelableExtra(extraName)).toString();
+                        }
+                    // end of our fix
+                    callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, r));
                     return true;
                 } else {
                     //return new PluginResult(PluginResult.Status.ERROR);

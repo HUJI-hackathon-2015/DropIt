@@ -17,6 +17,7 @@ var socketClient = {
         server.on("joinLabel", socketClient.joinLabelResponse);
         server.on("postMsg", socketClient.postMsgResponse);
         server.on("msgPosted", socketClient.msgPosted);
+        server.on("connect_error", function(err){ alert("Connection error: " + err.message); }) // TODO: show in gui
         socketClient.getTags();
     },
 
