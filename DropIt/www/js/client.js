@@ -4,7 +4,8 @@
 
 
 //var SERVER_ADDRESS = 'http://132.65.249.127:3000'; // Audituriom Address
-var SERVER_ADDRESS = 'http://132.65.250.197:3000'; // Aquirium Address
+//var SERVER_ADDRESS = 'http://132.65.250.197:3000'; // Aquirium Address
+var SERVER_ADDRESS = 'http://ec2-54-191-148-244.us-west-2.compute.amazonaws.com:8000'; // Amazon Address
 var server = io(SERVER_ADDRESS);
 var socketClient = {
     user : null,
