@@ -2,7 +2,9 @@
  * Created by tmrlvi on 4/30/15.
  */
 
-var SERVER_ADDRESS = 'http://132.65.250.197:3000';
+
+//var SERVER_ADDRESS = 'http://132.65.249.127:3000'; // Audituriom Address
+var SERVER_ADDRESS = 'http://132.65.250.197:3000'; // Aquirium Address
 var server = io(SERVER_ADDRESS);
 var socketClient = {
     user : null,
@@ -101,7 +103,7 @@ var socketClient = {
 
 
     postFile: function(label, image, fName){
-
+        console.log("posting file");
         server.emit('postMsg', {
             "label" : label,
             "type" : "file",

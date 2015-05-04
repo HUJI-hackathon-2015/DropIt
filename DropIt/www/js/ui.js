@@ -95,7 +95,7 @@ var chatUI = {
         else{
             column.addClass("column1");
         }
-        bubble.append($("<div>").addClass("example-text").text(user + ": " + message)).on("click", null,
+        bubble.append($("<div>").addClass("example-text").text(user + ": " + "Send Att" + Math.round(Math.random()*1000000))).on("click", null,
             {"uri" : message},
             function(event, data){
                 window.plugins.webintent.startActivity({
@@ -119,9 +119,11 @@ var chatUI = {
         });
 
         function onSuccess(imageData) {
+            console.log("got image");
             var date = new Date();
             var fName = Math.round(Math.random()*1000000) + ".jpg";
             //var fName = "tomer.jpg";
+            console.log("posting");
             socketClient.postFile(label, imageData, fName);
         }
 
