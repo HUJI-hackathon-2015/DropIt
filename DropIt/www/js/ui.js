@@ -43,8 +43,11 @@ var main = {
 var chatUI = {
     room : null,
     members : null,
+    history : [],
+    loadHistory : true,
 
     init: function(){
+        //alert("LoadHistory: " + chatUI.loadHistory);
         chatUI.room = sessionStorage.getItem("room");
         chatUI.members = sessionStorage.getItem("members");
         $(".nav2text").text(chatUI.room);
@@ -57,6 +60,29 @@ var chatUI = {
         $(".attach").on("click", function(){
             chatUI.takePicture(chatUI.room);
         });
+        if (chatUI.loadHistory){
+            myHistory = [];
+            var jsonHistory = localStorage.getItem(chatUI.room);
+            if (jsonHistory !== null) {
+                myHistory = JSON.parse(jsonHistory);
+            }
+            //alert("jsonHistory: " + jsonHistory);
+            //alert("History: " + JSON.stringify(chatUI.history));
+            for (var index in myHistory){
+                var user = myHistory[index][0];
+                var message = myHistory[index][1];
+                var fromMe = myHistory[index][2];
+                chatUI.showMessage(user, message, fromMe);
+            }
+            chatUI.loadHistory = false;
+        }
+    },
+
+    saveHistory: function(){
+            // TODO: figure out how to call when closing a window + room need to be id
+            //alert("Saving history: " + JSON.stringify(chatUI.history));
+            localStorage.setItem(chatUI.room, JSON.stringify(chatUI.history));
+            //document.removeEventListener("beforeunload", chatUI.saveHistory);
     },
 
     sendMessage: function(){
@@ -67,6 +93,8 @@ var chatUI = {
     },
 
     showMessage: function(user, message, fromMe){
+        chatUI.history.push([user, message, fromMe]);
+        chatUI.saveHistory();
         var chat = $(".chatcolumns");
         var column = $("<div>").addClass("w-col w-col-2 w-clearfix")
         var bubble = $("<div>").addClass("bubble1");
@@ -109,9 +137,6 @@ var chatUI = {
         chat.append(column);
     },
 
-    loadHistory: function(){
-
-    },
     takePicture: function (label) {
 
         navigator.camera.getPicture(onSuccess, onFail, { quality: 50,

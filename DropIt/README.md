@@ -12,6 +12,9 @@ We need to used cordova-android 3.7.0 since version 4.0.0 has problems with sock
 
     $ cordova platforms add android@3.7.0
     
+Having problems in building certain platforms? Try to remove and install. (Not all files of a platform are in 
+the platform directory)
+    
 ### Running 
 Then run:
 
