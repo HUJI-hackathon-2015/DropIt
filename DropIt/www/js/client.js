@@ -6,23 +6,15 @@
 //var SERVER_ADDRESS = 'http://132.65.249.127:3000'; // Audituriom Address
 //var SERVER_ADDRESS = 'http://132.65.250.197:3000'; // Aquirium Address
 var SERVER_ADDRESS = 'http://ec2-54-191-148-244.us-west-2.compute.amazonaws.com:8000'; // Amazon Address
-var server = io(SERVER_ADDRESS);
-var socketClient = {
-    user : null,
 
-    init : function(){
-        server.on("getTags", socketClient.getTagsResponse);
-        server.on("newLabel", socketClient.newLabelResponse);
-        server.on("addedLabel", socketClient.addLabel);
-        server.on("joinLabel", socketClient.joinLabelResponse);
-        server.on("postMsg", socketClient.postMsgResponse);
-        server.on("msgPosted", socketClient.msgPosted);
-        server.on("connect_error", function(err){ alert("Connection error: " + err.message); }) // TODO: show in gui
-        socketClient.getTags();
-    },
 
-    getTags: function ()
-    {
+var module = angular.module("socket.io", []);
+
+module.provider("$socket", function $socketProvider(){
+    var server = io(SERVER_ADDRESS);
+
+    this.getTags = function(){
+        console.log("in get tags");
         navigator.wifi.getAccessPoints(function (accessPoints) {
                 var chosen = null;
                 for (var index in accessPoints){
@@ -37,85 +29,38 @@ var socketClient = {
                 });
             },
             function (error) {
-                alert("Error obtaining wifi list: " + error.message);
+                server.emit('getTags', {
+                    'BSSID' : "None",
+                    'user' : "None"
+                })
             });
-    },
+    };
 
-    getTagsResponse : function(data){
-        socketClient.user = data["user"];
-        main.setLocation(data["user"] + "@" + data["location"]);
-        for (index in data["labels"]){
-            main.addNewLabel(data["labels"][index]["name"], data["labels"][index]["members"].length, true);
+    server.on("connect", this.getTags);
+    server.on("connect_error", function(err){ alert("Connection error: " + err.message); }); // TODO: show in gui
+    server.on("connect_timeout", function() { console.log("connect_timeout!" ); });
+    server.on("diconnect", function(){ console.log("disconnect"); });
+
+    this.$get = function $socketFactory($rootScope) {
+        return {
+                on : function on(event, callback){
+                    server.on(event, function(data){
+                        //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments
+                        var args = arguments;
+
+                        $rootScope.$apply(function () {
+                            // este callback.apply regista a função callback que
+                            // poderá conter referencias à variavel socket
+                            callback.apply(server, args);
+                        });
+                    });
+                },
+                emit : function emit(event, data){
+                    server.emit(event, data);
+                }
         }
-    },
+    };
 
-    newLabel : function(name){
-        server.emit("newLabel", {'name': name})
-    },
-
-    newLabelResponse : function(data){
-
-    },
-
-    addLabel : function(data){
-        main.addNewLabel(data["name"], 0, true);
-        server.emit('addedLabel', { 'status' : 'OK' });
-    },
-
-    joinLabel : function(labelName) {
-        server.emit('joinLabel', {'name': labelName});
-
-    },
-
-    joinLabelResponse : function(data) {
-        main.loadChat(data["name"], data["members"]);
-    },
-
-    partLabel : function(labelName) {
-        server.emit('partLabel', {'name': 'somePartLabelName'});
-    },
-
-    partLabelResponse : function(data) {
-    },
-
-    postMsg: function(label, msg){
-        server.emit('postMsg', {
-            "label" : label,
-            "type" : "text",
-            "content" : msg
-        });
-    },
-
-    postMsgResponse: function(data){
-    },
-
-    msgPosted: function(data){
-        if (data["type"] == "text") {
-            chatUI.showMessage(data["user"], data["content"], false);
-        } else if  (data["type"] == "file") {
-            if (socketClient.user === data["user"]) {
-                chatUI.showFile("me", data["content"], true);
-            } else {
-                chatUI.showFile(data["user"], data["content"], false);
-            }
-        } else {
-            alert("Unknown msg recieved")
-        }
-    },
-
-
-    postFile: function(label, image, fName){
-        console.log("posting file");
-        server.emit('postMsg', {
-            "label" : label,
-            "type" : "file",
-            "content" : image,
-            "fileName" : fName
-        });
-
-    }
-};
-
-document.addEventListener('deviceready', socketClient.init, false);
+});
 
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- This site was created in Webflow. http://www.webflow.com-->
 <!-- Last Published: Fri May 01 2015 01:07:34 GMT+0000 (UTC) -->
-<html data-wf-site="5541ec03c8130b082587425c" data-wf-page="5541ec03c8130b082587425d">
+<html data-wf-site="5541ec03c8130b082587425c" data-wf-page="5541ec03c8130b082587425d" ng-init="user='unknown'">
 <head>
     <meta charset="utf-8">
     <title>DropitTeamApp</title>
@@ -22,12 +22,12 @@
     <link rel="shortcut icon" type="image/x-icon" href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico">
     <link rel="apple-touch-icon" href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png">
 </head>
-<body>
-<div class="w-section w-clearfix main-screen">
+<body ng-controller="RoomController as room">
+<div class="w-section w-clearfix main-screen" ng-hide="room.tagName">
     <div class="w-nav navbar" data-collapse="tiny" data-animation="over-left" data-duration="400" data-contain="1">
         <div class="w-container navbar">
             <a class="w-nav-brand" href="#"><img class="test-logo" src="images/Logo PNG notext.png" width="50">
-                <div class="user-location">Waiting for WiFi</div>
+                <div class="user-location">{{ room.name }}</div>
             </a>
             <nav class="w-nav-menu w-clearfix navmenu" role="navigation"><a class="w-nav-link" href="#">Home</a><a class="w-nav-link" href="#">About</a><a class="w-nav-link" href="#">Contact</a>
             </nav>
@@ -35,30 +35,58 @@
     </div>
     <div class="w-container main-screen-items">
         <div id="tag-list"  class="w-row main-screen-rows">
+            <div class="w-col w-col-2 w-col-stack" ng-repeat="tag in room.tags">
+                <a ng-click="room.joinTag(tag.name)" class="tag-button link2 link{{ ($index % 5) + 1 }}">
+                <br/> {{ tag.name }}
+                </a>
+            </div>
         </div>
     </div>
-    <a class="w-clearfix w-inline-block new-button" href="#"><img class="new-button" src="images/add button.png" width="68">
+    <a class="w-clearfix w-inline-block new-button" href="#" ><img class="new-button" ng-click="room.createLabel()" src="images/add button.png" width="68">
     </a>
 </div>
+
+<div class="w-section chatpage" ng-show="room.tagName" ng-controller="ChatController as chat">
+    <div class="w-nav nav2" data-collapse="medium" data-animation="default" data-duration="400" data-contain="1">
+        <div class="w-container navbar"><img class="folder" src="images/folder.png" width="40">
+            <a class="w-nav-brand brand" ng-click="room.partTag()"><img class="back" src="images/white back png.png" width="33">
+            </a>
+            <div class="w-clearfix nav2text"><a class="infi4" href="#">{{ room.tagName }}</a>
+            </div>
+            <nav class="w-nav-menu" role="navigation"><a class="w-nav-link" href="#">Home</a><a class="w-nav-link" href="#">About</a><a class="w-nav-link" href="#">Contact</a>
+            </nav>
+        </div>
+    </div>
+    <div class="w-container columncontainer">
+        <div class="w-row chatcolumns">
+            <div class="w-col w-col-2 w-clearfix" ng-repeat="msg in chat.messages" ng-class="{'column1': !msg.fromMe}">
+                <div class="bubble1" ng-class="{'bubble-2': msg.fromMe}" ng-click="chat.openFile(msg.url)">
+                    <div class="example-text">
+                        {{ msg.user }} : {{ msg.text }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="w-inline-block other-attach-button" ng-click="chat.takePicture()"><img class="attach" src="images/attach button.png" width="64">
+        </a>
+    </div>
+    <div class="w-form form">
+        <form class="formtext" id="email-form" name="email-form" data-name="Email Form" ng-submit="chat.postMsg()">
+            <input class="w-input chatinput" id="field-2" type="text" placeholder="Talk!" name="field-2"  ng-model="chat.message">
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/webflow.js"></script>
 <!-- Added by us-->
+<script type="text/javascript" src="js/angular.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript" src="cordova.js"></script>
-<script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/socket.io.js"></script>
-<script type="text/javascript" src="js/ui.js"></script>
 <script type="text/javascript" src="js/client.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 <script>
-    $(function(){
-        $(".new-button:last").on("click", function(){
-            var name = prompt("New Label Name");
-            // If not canceled
-            if (name !== null) {
-                socketClient.newLabel(name);
-            }
-        });
 
-    });
 </script>
 <!-- end -->
 <!--[if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->

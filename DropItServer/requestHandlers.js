@@ -54,9 +54,9 @@ module.exports.joinLabelHandler = function(socket, data, serverState) {
 }
 
 module.exports.partLabelHandler = function(socket, data, serverState) {
-    var user = dataUtils.findUser(socket.id);
-    dataUtils.removeUserFromLabel(user.imei, data.name, dataUtils.getRoom(user.BSSID, serverState));
-    socket.emit({status: OK});
+    var user = dataUtils.findUser(socket.id, serverState);
+    dataUtils.removeUserFromLabel(user.imei, data.name, dataUtils.getRoom(user.BSSID, serverState), serverState);
+    socket.emit({status: "OK"});
 }
 
 
