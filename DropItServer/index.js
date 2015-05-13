@@ -7,7 +7,7 @@ var serverState = require(__base + 'serverState.js');
 var dataUtils = require(__base + 'dataUtils.js');
 var MongoClient = require('mongodb').MongoClient;
 
-server.listen(3000);
+server.listen(8000);
 
 app.get('/', function (req, res) {
     console.log("Serrved index");
