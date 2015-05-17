@@ -40,19 +40,16 @@ var TagsController;
         this.tagName = "";
         this.tagMembers = {};
 
-        this.partTag = function(){
-            console.log("Parted!!!!");
-            if ($scope.room.tagName !== "") {
-                $socket.emit('partLabel', {'name': $scope.room.tagName});
-                $scope.room.tagName = ""
-            }
-        };
-
         $socket.on("joinLabel", function(data) {
             console.log($scope);
-            $scope.room.partTag();
             $scope.room.tagName = data["name"];
             $scope.room.tagMembers = data["members"];
+        });
+
+        $socket.on("partLabel", function(data) {
+            if ($scope.room.tagName !== "") {
+                $scope.room.tagName = ""
+            }
         });
 
     });
@@ -80,19 +77,29 @@ var TagsController;
             }
         ];
 
-        this.postMsg = function() {
-            console.log($scope);
+
+        this.partTag = function(){
+            if ($scope.room.tagName !== "") {
+                $socket.emit('partLabel', {'name': $scope.room.tagName});
+                localStorage.setItem($scope.room.tagName, JSON.stringify(this.messages));
+                this.messages = {}
+            }
+        };
+
+        this.postMsg = function(e) {
+            // Avoid webflow logic ****need to take care in webflow itself***
+            e.stopPropagation();
             $socket.emit('postMsg', {
                 "label":  $scope.user,
                 "type": "text",
                 "content": $scope.chat.message
             });
-            this.messages.push({
+            $scope.chat.messages.push({
                 "user" : $scope.user,
                 "text" : $scope.chat.message,
                 "fromMe" : true
             });
-            this.message = "";
+            $scope.chat.message = "";
         };
 
         this.postFile = function(image, fName){
@@ -140,6 +147,13 @@ var TagsController;
                 }
         };
 
+        $socket.on("joinLabel", function(data) {
+            $scope.chat.messages = JSON.parse(localStorage.getItem(data["name"], "[]"))
+            if ($scope.chat.messages == null){
+                $scope.chat.messages = [];
+            }
+        });
+
         $socket.on("msgPosted", function(data){
             if (data["type"] == "text") {
                 $scope.chat.messages.push({
@@ -174,7 +188,7 @@ var TagsController;
             $scope.$apply(function() {
                 if ($scope.room.tagName !== "") {
                     $scope.chat.message = "";
-                    $scope.room.partTag();
+                    $scope.chat.partTag();
                 } else {
                     navigator.app.exitApp();
                 }
@@ -184,11 +198,3 @@ var TagsController;
     });
 
 })();
-
-// Start app only when device is ready
-// TODO: should show loading scrren before
-document.addEventListener("deviceready", function() {
-    // retrieve the DOM element that had the ng-app attribute
-    var domElement = document.querySelector("html");
-    angular.bootstrap(domElement, ["dropIt"]);
-}, false);

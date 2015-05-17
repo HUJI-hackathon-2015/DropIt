@@ -6,36 +6,48 @@
 //var SERVER_ADDRESS = 'http://132.65.249.127:3000'; // Audituriom Address
 //var SERVER_ADDRESS = 'http://132.65.250.197:3000'; // Aquirium Address
 var SERVER_ADDRESS = 'http://ec2-54-191-148-244.us-west-2.compute.amazonaws.com:8000'; // Amazon Address
+//var SERVER_ADDRESS = "http://10.0.0.1:8000";
 
 
 var module = angular.module("socket.io", []);
 
 module.provider("$socket", function $socketProvider(){
     var server = io(SERVER_ADDRESS);
+    var loaded = false;
+    var $provider = this; // We need it to call getTags in ready. Is it really necessary?
+
+    this.ready = function(event){
+        loaded = true;
+        $provider.getTags();
+    };
 
     this.getTags = function(){
         console.log("in get tags");
-        navigator.wifi.getAccessPoints(function (accessPoints) {
-                var chosen = null;
-                for (var index in accessPoints){
-                    if (chosen === null || accessPoints[index].level > chosen.level){
-                        chosen = accessPoints[index];
+        if (loaded) {
+            navigator.wifi.getAccessPoints(function (accessPoints) {
+                    var chosen = null;
+                    for (var index in accessPoints) {
+                        if (chosen === null || accessPoints[index].level > chosen.level) {
+                            chosen = accessPoints[index];
+                        }
                     }
-                }
 
-                server.emit('getTags', {
-                    'BSSID' : chosen.BSSID,
-                    'user' : cordova.plugins.uid.IMEI
+                    server.emit('getTags', {
+                        'BSSID': chosen.BSSID,
+                        'user': cordova.plugins.uid.IMEI
+                    });
+                },
+                function (error) {
+                    server.emit('getTags', {
+                        'BSSID': "None",
+                        'user': "None"
+                    })
                 });
-            },
-            function (error) {
-                server.emit('getTags', {
-                    'BSSID' : "None",
-                    'user' : "None"
-                })
-            });
+        }
     };
 
+    // Enable running getTags only after deviceready event
+    document.addEventListener("deviceready", this.ready, false);
     server.on("connect", this.getTags);
     server.on("connect_error", function(err){ alert("Connection error: " + err.message); }); // TODO: show in gui
     server.on("connect_timeout", function() { console.log("connect_timeout!" ); });
